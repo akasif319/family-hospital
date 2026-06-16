@@ -373,7 +373,7 @@
     <script src="script.js"></script>
        <script>
     (function() {
-        var API = 'http://localhost:5000/api';
+        var API = '/api';
         fetch(API + '/services?featured=true')
             .then(function(r) { return r.json(); })
             .then(function(svcs) {
@@ -400,7 +400,7 @@
     </script>
     <script>
     (function() {
-        var API = 'http://localhost:5000/api';
+        var API = '/api';
         fetch(API + '/doctors?featured=true')
             .then(function(r) { return r.json(); })
             .then(function(docs) {
@@ -413,7 +413,7 @@
                 for (var i = 0; i < docs.length; i++) {
                     var d = docs[i];
                         var img = d.image
-                        ? '<div class="doctor-img"><img src="http://localhost:5000' + d.image + '" alt="' + d.name + '"></div>'
+                        ? '<div class="doctor-img"><img src="' + d.image + '" alt="' + d.name + '"></div>'
                         : '<div class="doctor-img doctor-placeholder"><i class="fa-solid fa-user-doctor"></i></div>';
                     html += '<div class="card doctor-card">';
                     html += '<div class="doctor-img">' + img + '</div>';

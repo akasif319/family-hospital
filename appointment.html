@@ -560,7 +560,7 @@
 
     <script>
 (function() {
-    var API = 'http://localhost:5000/api';
+    var API = '/api';
     var specialistData = {};
     var currentDept = 'all';
     var currentGender = 'all';
@@ -630,7 +630,7 @@
         var html = '';
         filtered.forEach(function(d) {
             var img = d.image
-                ? '<div class="specialist-img"><img src="http://localhost:5000' + d.image + '" alt="' + d.name + '"></div>'
+                ? '<div class="specialist-img"><img src="' + d.image + '" alt="' + d.name + '"></div>'
                 : '<div class="specialist-img specialist-placeholder"><i class="fa-solid fa-user-doctor"></i></div>';
             html += '<div class="card specialist-card">' +
                 '<div class="specialist-img">' + img + '</div>' +
@@ -734,7 +734,7 @@
         }
         var d = selectedDoctor;
         container.innerHTML =
-            '<div class="doctor-top"><div class="doctor-top"><img src="http://localhost:5000' + d.image + '" alt="' + d.name + '"></div><div><h4>' + d.name + '</h4><span>' + (d.title || d.department) + '</span></div></div>' +
+            '<div class="doctor-top"><div class="doctor-top"><img src="' + d.image + '" alt="' + d.name + '"></div><div><h4>' + d.name + '</h4><span>' + (d.title || d.department) + '</span></div></div>' +
             '<div class="selected-doctor-info"><p><i class="fa-solid fa-star"></i> ' + d.rating + ' (' + d.reviews + ' reviews)</p><p><i class="fa-solid fa-location-dot"></i> ' + d.location + '</p></div>';
     }
 
@@ -961,7 +961,7 @@ function fetchBookedSlots(callback) {
         btn.disabled = true;
         btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Booking...';
 
-        fetch('http://localhost:5000/api/appointments', {
+        fetch('/api/appointments', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({

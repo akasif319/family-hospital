@@ -1,4 +1,4 @@
-var API = 'http://localhost:5000/api';
+var API = '/api';
 var token = localStorage.getItem('adminToken');
 var allAppointments = [];
 

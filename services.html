@@ -219,7 +219,7 @@
         <script src="script.js"></script>
     <script>
     (function() {
-        var API = 'http://localhost:5000/api';
+        var API = '/api';
         fetch(API + '/services')
             .then(function(r) { return r.json(); })
             .then(function(svcs) {
