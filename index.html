@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Family Hospital — Advanced Medical Care</title>
+    <link rel="icon" type="image/x-icon" href="assets/logo.png">
+    <link rel="stylesheet" href="css/fontawesome/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+    <!-- Top Bar -->
+    <div class="top-bar">
+        <div class="container flex flex-between">
+            <div class="top-bar-left flex">
+                <span><i class="fa-solid fa-phone"></i> +1 (800) 234-5678</span>
+                <span><i class="fa-solid fa-envelope"></i> info@familyhospital.com</span>
+            </div>
+            <div class="top-bar-right flex">
+                <span>Mon – Sat: 8:00 AM – 8:00 PM</span>
+                <div class="top-bar-social">
+                    <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
+                    <a href="#"><i class="fa-brands fa-twitter"></i></a>
+                    <a href="#"><i class="fa-brands fa-instagram"></i></a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Navbar -->
+    <nav class="navbar">
+    <div class="container flex flex-between">
+        <a href="#" class="logo">
+            <img src="asset/logo.png" alt="Family Hospital" onerror="this.style.display='none';this.parentElement.innerHTML='&lt;span class=&quot;logo-text&quot;&gt;Family&lt;span&gt;Hospital&lt;/span&gt;&lt;/span&gt;';">
+        </a>
+        <ul class="nav-menu" id="nav-menu">
+            <li><a href="#" class="nav-link active">Home</a></li>
+            <li><a href="services.html" class="nav-link">Services</a></li>
+            <li><a href="doctors.html" class="nav-link">Doctors</a></li>
+            <li><a href="about.html" class="nav-link">About</a></li>
+            <li><a href="reviews.html" class="nav-link">Review Us</a></li>
+            <li class="nav-auth-guest" id="nav-auth-guest">
+                <a href="login.html" class="nav-link">Login</a>
+            </li>
+            <li class="nav-auth-user" id="nav-auth-user" style="display:none;">
+                <div class="nav-user-menu">
+                    <button class="nav-user-btn" id="nav-user-btn">
+                        <span class="nav-user-avatar"><i class="fa-solid fa-user"></i></span>
+                        <span class="nav-user-name" id="nav-user-name">User</span>
+                        <i class="fa-solid fa-chevron-down" style="font-size:10px;margin-left:4px;color:#727780;"></i>
+                    </button>
+                    <div class="nav-user-dropdown" id="nav-user-dropdown">
+                        <a href="my-appointments.html"><i class="fa-solid fa-calendar-check"></i> My Appointments</a>
+                        <a href="#" id="nav-user-logout"><i class="fa-solid fa-right-from-bracket"></i> Logout</a>
+                    </div>
+                </div>
+            </li>
+            <li class="nav-cta-mobile"><a href="appointment.html" class="btn btn-primary ">Book Appointment</a></li>
+        </ul>
+        <a href="appointment.html" class="btn btn-primary nav-cta-desktop">Book Appointment</a>
+        <button class="nav-toggle" id="nav-toggle" aria-label="Toggle menu">
+            <i class="fa-solid fa-bars"></i>
+        </button>
+    </div>
+</nav>
+
+    <main id="main-content">
+
+        <!-- Hero Section -->
+        <section class="hero">
+            <div class="container flex">
+                <div class="hero-content anim anim-fade-up">
+                    <h1>Advanced Medical Care For Your Whole Family</h1>
+                    <p class="hero-desc">Compassionate healthcare backed by modern technology and experienced specialists. Your well-being is our priority.</p>
+                    <div class="hero-actions flex">
+                        <a href="appointment.html" class="btn btn-primary">Book Appointment</a>
+                        <a href="#services" class="btn btn-outline">Our Services</a>
+                    </div>
+                </div>
+                <div class="hero-image">
+                    <img src="asset/hero-image.png" alt="Family Hospital Care" onerror="this.parentElement.innerHTML='&lt;div class=&quot;hero-placeholder&quot;&gt;&lt;i class=&quot;fa-solid fa-staff-snake&quot;&gt;&lt;/i&gt;&lt;/div&gt;';">
+                </div>
+            </div>
+        </section>
+
+        <!-- Stats Section -->
+        <section class="stats">
+            <div class="container grid grid-4">
+                <div class="stat-item text-center anim anim-fade-up" data-delay="0">
+                    <span class="stat-number">25k+</span>
+                    <span class="stat-label">Happy Patients</span>
+                </div>
+                <div class="stat-item text-center anim anim-fade-up" data-delay="100">
+                    <span class="stat-number">150+</span>
+                    <span class="stat-label">Expert Doctors</span>
+                </div>
+                <div class="stat-item text-center anim anim-fade-up" data-delay="200">
+                    <span class="stat-number">15+</span>
+                    <span class="stat-label">Years Experience</span>
+                </div>
+                <div class="stat-item text-center anim anim-fade-up" data-delay="300">
+                    <span class="stat-number">98%</span>
+                    <span class="stat-label">Patient Satisfaction</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Services Section -->
+        <section class="services section" id="services">
+            <div class="container">
+                <div class="section-header text-center anim anim-fade-up">
+                    <h2>Our Core Services</h2>
+                    <p>Comprehensive medical services tailored to meet the needs of every patient.</p>
+                </div>
+                <div class="grid grid-3" id="homepage-services">
+                    <div class="text-center" style="grid-column:1/-1;padding:40px;color:#727780;">
+                        <i class="fa-solid fa-spinner fa-spin"></i> Loading...
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Doctors Section -->
+        <section class="doctors section" id="doctors">
+            <div class="container">
+                <div class="section-header text-center anim anim-fade-up">
+                    <h2>Meet Our Specialists</h2>
+                    <p>Highly qualified doctors committed to providing the best medical care.</p>
+                </div>
+                <div class="grid grid-3" id="homepage-doctors">
+                    <div class="text-center" style="grid-column:1/-1;padding:40px;color:#727780;">
+                        <i class="fa-solid fa-spinner fa-spin"></i> Loading...
+                    </div>
+                </div>
+                <div class="text-center" style="margin-top: 40px;">
+                    <a href="doctors.html" class="btn btn-primary">Find More Doctors <i class="fa-solid fa-arrow-right"></i></a>
+                </div>
+            </div>
+        </section>
+
+        <!-- FAQ Section -->
+        <section class="faq section" id="faq">
+            <div class="container">
+                <div class="section-header text-center anim anim-fade-up">
+                    <h2>Patient FAQs</h2>
+                    <p>Find answers to the most commonly asked questions about our services.</p>
+                </div>
+                <div class="faq-list">
+                    <div class="faq-item">
+                        <button class="faq-question">
+                            How do I book an appointment?
+                            <i class="fa-solid fa-chevron-down faq-icon"></i>
+                        </button>
+                        <div class="faq-answer">
+                            <p>You can book an appointment by calling our front desk, using the "Book Appointment" button on our website, or visiting the hospital in person. Online booking is available 24/7.</p>
+                        </div>
+                    </div>
+                    <div class="faq-item">
+                        <button class="faq-question">
+                            What insurance plans do you accept?
+                            <i class="fa-solid fa-chevron-down faq-icon"></i>
+                        </button>
+                        <div class="faq-answer">
+                            <p>We accept most major insurance plans including Blue Cross, Aetna, UnitedHealth, Cigna, and Medicare. Contact our billing department for specific plan details.</p>
+                        </div>
+                    </div>
+                    <div class="faq-item">
+                        <button class="faq-question">
+                            What are your emergency hours?
+                            <i class="fa-solid fa-chevron-down faq-icon"></i>
+                        </button>
+                        <div class="faq-answer">
+                            <p>Our emergency department is open 24 hours a day, 7 days a week, including all holidays. No appointment is necessary for emergency visits.</p>
+                        </div>
+                    </div>
+                    <div class="faq-item">
+                        <button class="faq-question">
+                            How can I access my medical records?
+                            <i class="fa-solid fa-chevron-down faq-icon"></i>
+                        </button>
+                        <div class="faq-answer">
+                            <p>Patients can request medical records through our patient portal, by submitting a form at the front desk, or by contacting our medical records department directly.</p>
+                        </div>
+                    </div>
+                    <div class="faq-item">
+                        <button class="faq-question">
+                            Do you offer telemedicine consultations?
+                            <i class="fa-solid fa-chevron-down faq-icon"></i>
+                        </button>
+                        <div class="faq-answer">
+                            <p>Yes, we offer virtual consultations for select specialties. You can schedule a telemedicine appointment through our website or by calling our appointment line.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Map Section -->
+        <section class="map-section" id="contact">
+            <div class="container">
+                <div class="section-header text-center anim anim-fade-up">
+                    <h2>Find Us</h2>
+                    <p>Visit our hospital for in-person consultations and emergency care.</p>
+                </div>
+                <div class="map-wrapper anim anim-fade-up">
+                    <iframe 
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3153.0977454348714!2d-122.41941568468177!3d37.77492977975892!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8085809c6c8f4459%3A0xb10ed6d9b5050fa5!2sSan+Francisco%2C+CA!5e0!3m2!1sen!2sus!4v1700000000000!5m2!1sen!2sus" 
+                        width="100%" 
+                        height="400" 
+                        style="border:0;" 
+                        allowfullscreen="" 
+                        loading="lazy" 
+                        referrerpolicy="no-referrer-when-downgrade"
+                        title="Family Hospital Location">
+                    </iframe>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA Section -->
+        <section class="cta anim anim-scale">
+            <div class="container text-center">
+                <h2>Need Medical Assistance?</h2>
+                <p>Our team is ready to help. Schedule a consultation with one of our specialists today.</p>
+                <div class="cta-actions flex">
+                    <a href="appointment.html" class="btn btn-white">Book Appointment</a>
+                    <!-- <a href="tel:+18002345678" class="btn btn-outline-white">
+                        <i class="fa-solid fa-phone"></i> Call Us Now
+                    </a> -->
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="grid grid-4">
+                <div class="footer-col">
+                    <a href="#" class="logo">
+                        <img src="asset/logo.png" alt="Family Hospital" onerror="this.style.display='none';this.parentElement.innerHTML='&lt;span class=&quot;logo-text footer-logo-text&quot;&gt;Family&lt;span&gt;Hospital&lt;/span&gt;&lt;/span&gt;';">
+                    </a>
+                    <p>Providing compassionate, high-quality healthcare for families since 2009. Your health is our mission.</p>
+                    <div class="footer-social">
+                        <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
+                        <a href="#"><i class="fa-brands fa-twitter"></i></a>
+                        <a href="#"><i class="fa-brands fa-instagram"></i></a>
+                        <a href="#"><i class="fa-brands fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+                <div class="footer-col">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="services.html">Services</a></li>
+                        <li><a href="doctors.html">Our Doctors</a></li>
+                        
+                        
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Services</h4>
+                    <ul>
+                        <li><a href="services.html">Cardiology</a></li>
+                        <li><a href="services.html">Neurology</a></li>
+                        <li><a href="services.html">Emergency Care</a></li>
+                        <li><a href="services.html">Orthopedics</a></li>
+                        <li><a href="services.html">Pediatric Care</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Contact Us</h4>
+                    <ul class="footer-contact">
+                        <li><i class="fa-solid fa-location-dot"></i> 123 Healthcare Ave, Medical City, MC 45678</li>
+                        <li><i class="fa-solid fa-phone"></i> +1 (800) 234-5678</li>
+                        <li><i class="fa-solid fa-envelope"></i> info@familyhospital.com</li>
+                        <li><i class="fa-solid fa-clock"></i> Mon – Sat: 8AM – 8PM</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom text-center">
+                <p>2026 Family Hospital. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Go to Top Button -->
+    <button class="go-top-btn" id="go-top-btn" aria-label="Go to top">
+        <i class="fa-solid fa-chevron-up"></i>
+    </button>
+
+    <!-- Accessibility -->
+<div class="a11y-toolbar">
+    <div class="a11y-panel" id="a11y-panel">
+        <div class="a11y-panel-header">
+            <h4><i class="fa-solid fa-universal-access"></i> Accessibility</h4>
+            <button class="a11y-panel-close" id="a11y-panel-close" aria-label="Close accessibility panel"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+
+        <div>
+            <div class="a11y-option-label" style="margin-bottom:8px;font-size:12px;font-weight:600;color:#727780;text-transform:uppercase;letter-spacing:0.05em;">Text Size</div>
+            <div class="a11y-font-sizes">
+                <button class="a11y-font-btn small" data-size="small" aria-label="Small text">A<sup style="−</sup></button>
+                <button class="a11y-font-btn default active" data-size="default" aria-label="Default text">A</button>
+                <button class="a11y-font-btn large" data-size="large" aria-label="Large text">A<sup>+</sup></button>
+            </div>
+        </div>
+
+        <div class="a11y-option">
+            <span class="a11y-option-label"><i class="fa-solid fa-circle-half-stroke"></i> High Contrast</span>
+            <label class="a11y-switch"><input type="checkbox" id="a11y-contrast"><span class="a11y-slider"></span></label>
+        </div>
+
+        <div class="a11y-option">
+            <span class="a11y-option-label"><i class="fa-solid fa-droplet"></i> Grayscale</span>
+            <label class="a11y-switch"><input type="checkbox" id="a11y-grayscale"><span class="a11y-slider"></span></label>
+        </div>
+
+        <div class="a11y-option">
+            <span class="a11y-option-label"><i class="fa-solid fa-font"></i> Readable Font</span>
+            <label class="a11y-switch"><input type="checkbox" id="a11y-readable"><span class="a11y-slider"></span></label>
+        </div>
+
+        <div class="a11y-option">
+            <span class="a11y-option-label"><i class="fa-solid fa-pause"></i> Disable Animations</span>
+            <label class="a11y-switch"><input type="checkbox" id="a11y-motion"><span class="a11y-slider"></span></label>
+        </div>
+
+        <div class="a11y-option">
+            <span class="a11y-option-label"><i class="fa-solid fa-link"></i> Highlight Links</span>
+            <label class="a11y-switch"><input type="checkbox" id="a11y-links"><span class="a11y-slider"></span></label>
+        </div>
+
+        <button class="a11y-reset-btn" id="a11y-reset"><i class="fa-solid fa-rotate-left"></i> Reset All Settings</button>
+    </div>
+    <button class="a11y-toggle" id="a11y-toggle" aria-label="Open accessibility settings">
+        <i class="fa-solid fa-universal-access"></i>
+    </button>
+</div>
+
+    <!-- Chatbot Widget -->
+    <div class="chatbot">
+        <div class="chatbot-panel" id="chatbot-panel">
+            <div class="chatbot-header">
+                <h4>Chat with Us</h4>
+                <button class="chatbot-close" id="chatbot-close" aria-label="Close chat">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+            <div class="chatbot-messages" id="chatbot-messages">
+                <div class="chat-msg bot">
+                    <p>Hello! How can we help you today?</p>
+                </div>
+            </div>
+            <form class="chatbot-input" id="chatbot-form">
+                <input type="text" id="chatbot-input" placeholder="Type your message..." autocomplete="off">
+                <button type="submit" aria-label="Send message">
+                    <i class="fa-solid fa-paper-plane"></i>
+                </button>
+            </form>
+        </div>
+        <button class="chatbot-toggle" id="chatbot-toggle" aria-label="Open chat">
+            <i class="fa-solid fa-comment-dots"></i>
+        </button>
+    </div>
+
+    <script src="script.js"></script>
+       <script>
+    (function() {
+        var API = 'http://localhost:5000/api';
+        fetch(API + '/services?featured=true')
+            .then(function(r) { return r.json(); })
+            .then(function(svcs) {
+                var c = document.getElementById('homepage-services');
+                if (!svcs.length) {
+                    c.innerHTML = '<p class="text-center" style="grid-column:1/-1;color:#727780;">No services found.</p>';
+                    return;
+                }
+                var html = '';
+                for (var i = 0; i < svcs.length; i++) {
+                    var s = svcs[i];
+                    html += '<div class="card">';
+                    html += '<div class="card-icon"><i class="' + (s.icon || 'fa-solid fa-stethoscope') + '"></i></div>';
+                    html += '<h3>' + s.name + '</h3>';
+                    html += '<p>' + (s.description || '') + '</p>';
+                    html += '</div>';
+                }
+                c.innerHTML = html;
+            })
+            .catch(function() {
+                document.getElementById('homepage-services').innerHTML = '<p class="text-center" style="grid-column:1/-1;color:#727780;">Failed to load services.</p>';
+            });
+    })();
+    </script>
+    <script>
+    (function() {
+        var API = 'http://localhost:5000/api';
+        fetch(API + '/doctors?featured=true')
+            .then(function(r) { return r.json(); })
+            .then(function(docs) {
+                var c = document.getElementById('homepage-doctors');
+                if (!docs.length) {
+                    c.innerHTML = '<p class="text-center" style="grid-column:1/-1;color:#727780;">No doctors found.</p>';
+                    return;
+                }
+                var html = '';
+                for (var i = 0; i < docs.length; i++) {
+                    var d = docs[i];
+                        var img = d.image
+                        ? '<div class="doctor-img"><img src="http://localhost:5000' + d.image + '" alt="' + d.name + '"></div>'
+                        : '<div class="doctor-img doctor-placeholder"><i class="fa-solid fa-user-doctor"></i></div>';
+                    html += '<div class="card doctor-card">';
+                    html += '<div class="doctor-img">' + img + '</div>';
+                    html += '<div class="doctor-info">';
+                    html += '<h3>' + d.name + '</h3>';
+                    html += '<span class="doctor-specialty">' + d.department + '</span>';
+                    html += '<p>' + (d.description || '') + '</p>';
+                    html += '</div></div>';
+                }
+                c.innerHTML = html;
+            })
+            .catch(function() {
+                document.getElementById('homepage-doctors').innerHTML = '<p class="text-center" style="grid-column:1/-1;color:#727780;">Failed to load doctors.</p>';
+            });
+    })();
+    </script>
+</body>
+</html>

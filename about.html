@@ -1,0 +1,764 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us — Family Hospital</title>
+    <link rel="icon" type="image/x-icon" href="assets/logo.png">
+    <link rel="stylesheet" href="css/fontawesome/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* ===== About Hero ===== */
+        .about-hero {
+            position: relative;
+            min-height: 480px;
+            display: flex;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        .about-hero-bg {
+            position: absolute;
+            inset: 0;
+            z-index: 0;
+        }
+
+        .about-hero-bg img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .about-hero-bg::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(15, 76, 129, 0.88) 0%, rgba(0, 53, 95, 0.75) 100%);
+        }
+
+        .about-hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 640px;
+            padding: 80px 0;
+        }
+
+        .about-hero-tagline {
+            font-family: 'Public Sans', sans-serif;
+            font-size: 16px;
+            font-weight: 600;
+            color: #6DCAB9;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            margin-bottom: 16px;
+        }
+
+        .about-hero-content h1 {
+            font-size: 44px;
+            font-weight: 700;
+            color: #fff;
+            line-height: 1.15;
+            letter-spacing: -0.02em;
+            margin-bottom: 20px;
+        }
+
+        .about-hero-content p {
+            font-size: 17px;
+            color: rgba(255, 255, 255, 0.85);
+            line-height: 1.7;
+            margin-bottom: 32px;
+        }
+
+        .about-hero-actions {
+            display: flex;
+            gap: 14px;
+            flex-wrap: wrap;
+        }
+
+        /* ===== Vision & Mission ===== */
+        .vm-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 32px;
+        }
+
+        .vm-card {
+            background: #fff;
+            border: 1px solid #C2C7D1;
+            border-radius: 12px;
+            padding: 40px 32px;
+            transition: box-shadow 0.2s ease, transform 0.2s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .vm-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+        }
+
+        .vm-card.vision::before {
+            background: #0F4C81;
+        }
+
+        .vm-card.mission::before {
+            background: #00796B;
+        }
+
+        .vm-card:hover {
+            box-shadow: 0 8px 30px rgba(15, 76, 129, 0.1);
+            transform: translateY(-3px);
+        }
+
+        .vm-icon {
+            width: 56px;
+            height: 56px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+            margin-bottom: 24px;
+        }
+
+        .vm-card.vision .vm-icon {
+            background: #E3F2FD;
+            color: #0F4C81;
+        }
+
+        .vm-card.mission .vm-icon {
+            background: #E0F2F1;
+            color: #00796B;
+        }
+
+        .vm-card h3 {
+            font-size: 22px;
+            font-weight: 700;
+            margin-bottom: 14px;
+            color: #00355F;
+        }
+
+        .vm-card p {
+            font-size: 15px;
+            color: #42474F;
+            line-height: 1.7;
+        }
+
+        /* ===== Core Values ===== */
+        .values-section {
+            background: #F3FAFF;
+        }
+
+        .values-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 24px;
+        }
+
+        .value-card {
+            background: #fff;
+            border: 1px solid #C2C7D1;
+            border-radius: 10px;
+            padding: 32px 24px;
+            text-align: center;
+            transition: all 0.25s ease;
+            position: relative;
+        }
+
+        .value-card:hover {
+            box-shadow: 0 8px 28px rgba(15, 76, 129, 0.08);
+            transform: translateY(-4px);
+            border-color: #A0C9FF;
+        }
+
+        .value-icon-wrap {
+            width: 64px;
+            height: 64px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            font-size: 24px;
+            transition: transform 0.25s ease;
+        }
+
+        .value-card:hover .value-icon-wrap {
+            transform: scale(1.1);
+        }
+
+        .value-card:nth-child(1) .value-icon-wrap { background: #E3F2FD; color: #0F4C81; }
+        .value-card:nth-child(2) .value-icon-wrap { background: #FCE4EC; color: #C62828; }
+        .value-card:nth-child(3) .value-icon-wrap { background: #E0F2F1; color: #00796B; }
+        .value-card:nth-child(4) .value-icon-wrap { background: #FFF3E0; color: #E65100; }
+
+        .value-card h3 {
+            font-size: 18px;
+            font-weight: 700;
+            color: #00355F;
+            margin-bottom: 10px;
+        }
+
+        .value-card p {
+            font-size: 14px;
+            color: #42474F;
+            line-height: 1.6;
+        }
+
+        /* ===== Stats Banner ===== */
+        .about-stats {
+            background: #0F4C81;
+            padding: 56px 0;
+        }
+
+        .about-stats .container {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 24px;
+        }
+
+        .about-stat-item {
+            text-align: center;
+        }
+
+        .about-stat-item .stat-number {
+            font-size: 40px;
+            font-weight: 700;
+            color: #fff;
+            margin-bottom: 6px;
+        }
+
+        .about-stat-item .stat-label {
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.75);
+            font-weight: 500;
+        }
+
+        /* ===== Review Us ===== */
+        .review-section {
+            background: #fff;
+        }
+
+        .review-layout {
+            display: flex;
+            gap: 48px;
+            align-items: center;
+        }
+
+        .review-content {
+            flex: 1;
+        }
+
+        .review-content h2 {
+            font-size: 32px;
+            font-weight: 700;
+            color: #00355F;
+            margin-bottom: 16px;
+        }
+
+        .review-content > p {
+            font-size: 16px;
+            color: #42474F;
+            line-height: 1.7;
+            margin-bottom: 32px;
+        }
+
+        .review-platforms {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            margin-bottom: 32px;
+        }
+
+        .review-platform {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            padding: 16px 20px;
+            border: 1px solid #C2C7D1;
+            border-radius: 8px;
+            transition: all 0.2s;
+            text-decoration: none;
+        }
+
+        .review-platform:hover {
+            border-color: #0F4C81;
+            box-shadow: 0 4px 16px rgba(15, 76, 129, 0.08);
+            transform: translateY(-2px);
+        }
+
+        .review-platform-icon {
+            width: 42px;
+            height: 42px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            flex-shrink: 0;
+        }
+
+        .review-platform-icon.google { background: #E3F2FD; color: #0F4C81; }
+        .review-platform-icon.facebook { background: #E3F2FD; color: #1877F2; }
+        .review-platform-icon.yelp { background: #FF6D00; color: #fff; }
+        .review-platform-icon.gmaps { background: #E8F5E9; color: #34A853; }
+
+        .review-platform-text strong {
+            display: block;
+            font-size: 14px;
+            color: #071E27;
+            font-weight: 600;
+        }
+
+        .review-platform-text span {
+            font-size: 12px;
+            color: #727780;
+        }
+
+        .review-image {
+            flex: 1;
+            max-width: 440px;
+        }
+
+        .review-image img {
+            border-radius: 12px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+        }
+
+        /* ===== Responsive ===== */
+        @media (max-width: 1024px) {
+            .values-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .about-hero-content h1 {
+                font-size: 36px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .about-hero {
+                min-height: 420px;
+            }
+
+            .about-hero-content {
+                padding: 60px 0;
+            }
+
+            .about-hero-content h1 {
+                font-size: 30px;
+            }
+
+            .vm-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .about-stats .container {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 32px;
+            }
+
+            .review-layout {
+                flex-direction: column;
+            }
+
+            .review-image {
+                max-width: 100%;
+                order: -1;
+            }
+
+            .review-platforms {
+                grid-template-columns: 1fr;
+            }
+
+            .about-stat-item .stat-number {
+                font-size: 32px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .about-stats .container {
+                grid-template-columns: 1fr;
+            }
+
+            .values-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .about-hero-content h1 {
+                font-size: 26px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+    <!-- Top Bar -->
+    <div class="top-bar">
+        <div class="container flex flex-between">
+            <div class="top-bar-left flex">
+                <span><i class="fa-solid fa-phone"></i> +1 (800) 234-5678</span>
+                <span><i class="fa-solid fa-envelope"></i> info@familyhospital.com</span>
+            </div>
+            <div class="top-bar-right flex">
+                <span>Mon – Sat: 8:00 AM – 8:00 PM</span>
+                <div class="top-bar-social">
+                    <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
+                    <a href="#"><i class="fa-brands fa-twitter"></i></a>
+                    <a href="#"><i class="fa-brands fa-instagram"></i></a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="container flex flex-between">
+            <a href="index.html" class="logo">
+                <img src="asset/logo.png" alt="Family Hospital" onerror="this.style.display='none';this.parentElement.innerHTML='&lt;span class=&quot;logo-text&quot;&gt;Family&lt;span&gt;Hospital&lt;/span&gt;&lt;/span&gt;';">
+            </a>
+            <ul class="nav-menu" id="nav-menu">
+                <li><a href="index.html" class="nav-link">Home</a></li>
+                <li><a href="services.html" class="nav-link">Services</a></li>
+                <li><a href="doctors.html" class="nav-link">Doctors</a></li>
+                <li><a href="about.html" class="nav-link active">About</a></li>
+                <li><a href="reviews.html" class="nav-link">Review Us</a></li>
+                <li><a href="login.html" class="nav-link">Login</a></li>
+                
+                
+                <li class="nav-auth-user" id="nav-auth-user" style="display:none;">
+                    <div class="nav-user-menu">
+                        <button class="nav-user-btn" id="nav-user-btn">
+                            <span class="nav-user-avatar"><i class="fa-solid fa-user"></i></span>
+                            <span class="nav-user-name" id="nav-user-name">User</span>
+                            <i class="fa-solid fa-chevron-down" style="font-size:10px;margin-left:4px;color:#727780;"></i>
+                        </button>
+                        <div class="nav-user-dropdown" id="nav-user-dropdown">
+                            <a href="my-appointments.html"><i class="fa-solid fa-calendar-check"></i> My Appointments</a>
+                            <a href="#" id="nav-user-logout"><i class="fa-solid fa-right-from-bracket"></i> Logout</a>
+                        </div>
+                    </div>
+                </li>
+                <li class="nav-cta-mobile"><a href="appointment.html" class="btn btn-primary">Book Appointment</a></li>
+            </ul>
+            <a href="appointment.html" class="btn btn-primary nav-cta-desktop">Book Appointment</a>
+            <button class="nav-toggle" id="nav-toggle" aria-label="Toggle menu">
+                <i class="fa-solid fa-bars"></i>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="about-hero">
+        <div class="about-hero-bg">
+            <img src="https://picsum.photos/seed/familyhospital-hero/1600/700.jpg" alt="Family Hospital Building">
+        </div>
+        <div class="container">
+            <div class="about-hero-content anim anim-fade-up">
+                <p class="about-hero-tagline">Healing with Heart, Leading with Science</p>
+                <h1>Compassionate Care, <br>Advanced Medicine</h1>
+                <p>For over 15 years, Family Hospital has been a trusted healthcare partner for our community — delivering patient-centered care powered by the latest medical advancements.</p>
+                <div class="about-hero-actions">
+                    <a href="appointment.html" class="btn btn-white"><i class="fa-solid fa-calendar-check"></i> Book Appointment</a>
+                    
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Vision & Mission -->
+    <section class="section" id="main-content">
+        <div class="container">
+            <div class="section-header text-center anim anim-fade-up">
+                <h2>What Drives Us</h2>
+                <p>Our vision and mission guide every decision we make and every patient we treat.</p>
+            </div>
+            <div class="vm-grid">
+                <div class="vm-card vision anim anim-fade-right">
+                    <div class="vm-icon"><i class="fa-solid fa-eye"></i></div>
+                    <h3>Our Vision</h3>
+                    <p>To be the most trusted healthcare provider in the region — where every patient receives world-class treatment in an environment built on empathy, dignity, and respect. We envision a community where quality healthcare is accessible to all.</p>
+                </div>
+                <div class="vm-card mission anim anim-fade-left">
+                    <div class="vm-icon"><i class="fa-solid fa-bullseye"></i></div>
+                    <h3>Our Mission</h3>
+                    <p>To deliver exceptional medical services through a team of highly skilled professionals, cutting-edge technology, and a patient-first approach. We are committed to improving lives through prevention, diagnosis, treatment, and ongoing wellness support.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Core Values -->
+    <section class="values-section section">
+        <div class="container">
+            <div class="section-header text-center anim anim-fade-up">
+                <h2>Our Core Values</h2>
+                <p>The principles that shape our culture and define the care we provide.</p>
+            </div>
+            <div class="values-grid">
+                <div class="value-card anim anim-fade-up" data-delay="0">
+                    <div class="value-icon-wrap"><i class="fa-solid fa-award"></i></div>
+                    <h3>Excellence</h3>
+                    <p>We pursue the highest standards in medical care, continuously improving our skills, facilities, and processes to deliver outstanding outcomes.</p>
+                </div>
+                <div class="value-card anim anim-fade-up" data-delay="100">
+                    <div class="value-icon-wrap"><i class="fa-solid fa-hand-holding-heart"></i></div>
+                    <h3>Compassion</h3>
+                    <p>We treat every patient with kindness and empathy, understanding that behind every case is a person who deserves care, comfort, and reassurance.</p>
+                </div>
+                <div class="value-card anim anim-fade-up" data-delay="200">
+                    <div class="value-icon-wrap"><i class="fa-solid fa-shield-halved"></i></div>
+                    <h3>Integrity</h3>
+                    <p>We are honest, transparent, and ethical in everything we do — from clinical decisions to billing, ensuring trust at every interaction.</p>
+                </div>
+                <div class="value-card anim anim-fade-up" data-delay="300">
+                    <div class="value-icon-wrap"><i class="fa-solid fa-lightbulb"></i></div>
+                    <h3>Innovation</h3>
+                    <p>We embrace modern technology and new medical approaches to provide safer, faster, and more effective treatments for our patients.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Banner -->
+    <section class="about-stats">
+        <div class="container">
+            <div class="about-stat-item anim anim-fade-up" data-delay="0">
+                <span class="stat-number">15+</span>
+                <span class="stat-label">Years of Service</span>
+            </div>
+            <div class="about-stat-item anim anim-fade-up" data-delay="100">
+                <span class="stat-number">150+</span>
+                <span class="stat-label">Expert Doctors</span>
+            </div>
+            <div class="about-stat-item anim anim-fade-up" data-delay="200">
+                <span class="stat-number">25,000+</span>
+                <span class="stat-label">Patients Treated</span>
+            </div>
+            <div class="about-stat-item anim anim-fade-up" data-delay="300">
+                <span class="stat-number">98%</span>
+                <span class="stat-label">Patient Satisfaction</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Review Us -->
+    <section class="review-section section" id="contact">
+        <div class="container">
+            <div class="review-layout">
+                <div class="review-content anim anim-fade-right">
+                    <h2>Your Feedback Matters</h2>
+                    <p>Help us improve and help others find quality care. Share your experience at Family Hospital on any of these platforms — every review makes a difference.</p>
+
+                    <div class="review-platforms">
+                        <a href="#" class="review-platform">
+                            <div class="review-platform-icon google"><i class="fa-brands fa-google"></i></div>
+                            <div class="review-platform-text">
+                                <strong>Google Reviews</strong>
+                                <span>Rate us on Google</span>
+                            </div>
+                        </a>
+                        <a href="#" class="review-platform">
+                            <div class="review-platform-icon facebook"><i class="fa-brands fa-facebook-f"></i></div>
+                            <div class="review-platform-text">
+                                <strong>Facebook</strong>
+                                <span>Share on our page</span>
+                            </div>
+                        </a>
+                       
+                        <a href="#" class="review-platform">
+                            <div class="review-platform-icon gmaps"><i class="fa-solid fa-map-location-dot"></i></div>
+                            <div class="review-platform-text">
+                                <strong>Google Maps</strong>
+                                <span>Review on Maps</span>
+                            </div>
+                        </a>
+                    </div>
+
+                    <a href="appointment.html" class="btn btn-primary"><i class="fa-solid fa-calendar-check"></i> Book an Appointment</a>
+                </div>
+                <div class="review-image anim anim-fade-left">
+                    <img src="/assets/reviewPageimg.jpeg" alt="Family Hospital Interior">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="grid grid-4">
+                <div class="footer-col">
+                    <a href="#" class="logo">
+                        <img src="asset/logo.png" alt="Family Hospital" onerror="this.style.display='none';this.parentElement.innerHTML='&lt;span class=&quot;logo-text footer-logo-text&quot;&gt;Family&lt;span&gt;Hospital&lt;/span&gt;&lt;/span&gt;';">
+                    </a>
+                    <p>Providing compassionate, high-quality healthcare for families since 2009. Your health is our mission.</p>
+                    <div class="footer-social">
+                        <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
+                        <a href="#"><i class="fa-brands fa-twitter"></i></a>
+                        <a href="#"><i class="fa-brands fa-instagram"></i></a>
+                        <a href="#"><i class="fa-brands fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+                <div class="footer-col">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="services.html">Services</a></li>
+                        <li><a href="doctors.html">Our Doctors</a></li>
+                        
+                        
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Services</h4>
+                    <ul>
+                        <li><a href="services.html">Cardiology</a></li>
+                        <li><a href="services.html">Neurology</a></li>
+                        <li><a href="services.html">Emergency Care</a></li>
+                        <li><a href="services.html">Orthopedics</a></li>
+                        <li><a href="services.html">Pediatric Care</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Contact Us</h4>
+                    <ul class="footer-contact">
+                        <li><i class="fa-solid fa-location-dot"></i> 123 Healthcare Ave, Medical City, MC 45678</li>
+                        <li><i class="fa-solid fa-phone"></i> +1 (800) 234-5678</li>
+                        <li><i class="fa-solid fa-envelope"></i> info@familyhospital.com</li>
+                        <li><i class="fa-solid fa-clock"></i> Mon – Sat: 8AM – 8PM</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom text-center">
+                <p>2026 Family Hospital. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Go to Top -->
+    <button class="go-top-btn" id="go-top-btn" aria-label="Go to top">
+        <i class="fa-solid fa-chevron-up"></i>
+    </button>
+
+
+    <!-- Accessibility -->
+<div class="a11y-toolbar">
+    <div class="a11y-panel" id="a11y-panel">
+        <div class="a11y-panel-header">
+            <h4><i class="fa-solid fa-universal-access"></i> Accessibility</h4>
+            <button class="a11y-panel-close" id="a11y-panel-close" aria-label="Close accessibility panel"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+
+        <div>
+            <div class="a11y-option-label" style="margin-bottom:8px;font-size:12px;font-weight:600;color:#727780;text-transform:uppercase;letter-spacing:0.05em;">Text Size</div>
+            <div class="a11y-font-sizes">
+                <button class="a11y-font-btn small" data-size="small" aria-label="Small text">A<sup style="−</sup></button>
+                <button class="a11y-font-btn default active" data-size="default" aria-label="Default text">A</button>
+                <button class="a11y-font-btn large" data-size="large" aria-label="Large text">A<sup>+</sup></button>
+            </div>
+        </div>
+
+        <div class="a11y-option">
+            <span class="a11y-option-label"><i class="fa-solid fa-circle-half-stroke"></i> High Contrast</span>
+            <label class="a11y-switch"><input type="checkbox" id="a11y-contrast"><span class="a11y-slider"></span></label>
+        </div>
+
+        <div class="a11y-option">
+            <span class="a11y-option-label"><i class="fa-solid fa-droplet"></i> Grayscale</span>
+            <label class="a11y-switch"><input type="checkbox" id="a11y-grayscale"><span class="a11y-slider"></span></label>
+        </div>
+
+        <div class="a11y-option">
+            <span class="a11y-option-label"><i class="fa-solid fa-font"></i> Readable Font</span>
+            <label class="a11y-switch"><input type="checkbox" id="a11y-readable"><span class="a11y-slider"></span></label>
+        </div>
+
+        <div class="a11y-option">
+            <span class="a11y-option-label"><i class="fa-solid fa-pause"></i> Disable Animations</span>
+            <label class="a11y-switch"><input type="checkbox" id="a11y-motion"><span class="a11y-slider"></span></label>
+        </div>
+
+        <div class="a11y-option">
+            <span class="a11y-option-label"><i class="fa-solid fa-link"></i> Highlight Links</span>
+            <label class="a11y-switch"><input type="checkbox" id="a11y-links"><span class="a11y-slider"></span></label>
+        </div>
+
+        <button class="a11y-reset-btn" id="a11y-reset"><i class="fa-solid fa-rotate-left"></i> Reset All Settings</button>
+    </div>
+    <button class="a11y-toggle" id="a11y-toggle" aria-label="Open accessibility settings">
+        <i class="fa-solid fa-universal-access"></i>
+    </button>
+</div>
+
+    <!-- Chatbot -->
+    <div class="chatbot">
+        <div class="chatbot-panel" id="chatbot-panel">
+            <div class="chatbot-header">
+                <h4>Chat with Us</h4>
+                <button class="chatbot-close" id="chatbot-close" aria-label="Close chat"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div class="chatbot-messages" id="chatbot-messages">
+                <div class="chat-msg bot"><p>Hello! How can we help you today?</p></div>
+            </div>
+            <form class="chatbot-input" id="chatbot-form">
+                <input type="text" id="chatbot-input" placeholder="Type your message..." autocomplete="off">
+                <button type="submit" aria-label="Send message"><i class="fa-solid fa-paper-plane"></i></button>
+            </form>
+        </div>
+        <button class="chatbot-toggle" id="chatbot-toggle" aria-label="Open chat"><i class="fa-solid fa-comment-dots"></i></button>
+    </div>
+
+    <script src="script.js"></script>
+    <script>
+    // User auth nav state
+    (function() {
+        var token = localStorage.getItem('userToken');
+        var guestEl = document.getElementById('nav-auth-guest');
+        var userEl = document.getElementById('nav-auth-user');
+        var nameEl = document.getElementById('nav-user-name');
+        var dropdown = document.getElementById('nav-user-dropdown');
+        var userBtn = document.getElementById('nav-user-btn');
+        var logoutBtn = document.getElementById('nav-user-logout');
+
+        if (token) {
+            guestEl.style.display = 'none';
+            userEl.style.display = 'block';
+            var name = localStorage.getItem('userName');
+            nameEl.textContent = name ? name.split(' ')[0] : 'User';
+        } else {
+            guestEl.style.display = 'block';
+            userEl.style.display = 'none';
+        }
+
+        if (userBtn) {
+            userBtn.addEventListener('click', function(e) {
+                e.stopPropagation();
+                dropdown.classList.toggle('open');
+            });
+        }
+
+        document.addEventListener('click', function() {
+            if (dropdown) dropdown.classList.remove('open');
+        });
+
+        if (logoutBtn) {
+            logoutBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                localStorage.removeItem('userToken');
+                localStorage.removeItem('userName');
+                localStorage.removeItem('userEmail');
+                window.location.href = 'index.html';
+            });
+        }
+    })();
+    </script>
+</body>
+</html>

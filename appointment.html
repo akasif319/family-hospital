@@ -1,0 +1,1032 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Appointment — Family Hospital</title>
+    <link rel="icon" type="image/x-icon" href="assets/logo.png">
+    <link rel="stylesheet" href="css/fontawesome/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+     <a href="#main-content" class="skip-link">Skip to main content</a>
+
+    <!-- Top Bar -->
+    <div class="top-bar">
+        <div class="container flex flex-between">
+            <div class="top-bar-left flex">
+                <span><i class="fa-solid fa-phone"></i> +1 (800) 234-5678</span>
+                <span><i class="fa-solid fa-envelope"></i> info@familyhospital.com</span>
+            </div>
+            <div class="top-bar-right flex">
+                <span>Mon – Sat: 8:00 AM – 8:00 PM</span>
+                <div class="top-bar-social">
+                    <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
+                    <a href="#"><i class="fa-brands fa-twitter"></i></a>
+                    <a href="#"><i class="fa-brands fa-instagram"></i></a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="container flex flex-between">
+            <a href="index.html" class="logo">
+                <img src="asset/logo.png" alt="Family Hospital" onerror="this.style.display='none';this.parentElement.innerHTML='&lt;span class=&quot;logo-text&quot;&gt;Family&lt;span&gt;Hospital&lt;/span&gt;&lt;/span&gt;';">
+            </a>
+            <ul class="nav-menu" id="nav-menu">
+                <li><a href="index.html" class="nav-link">Home</a></li>
+                <li><a href="services.html" class="nav-link">Services</a></li>
+                <li><a href="doctors.html" class="nav-link">Doctors</a></li>
+                <li><a href="about.html" class="nav-link">About</a></li>
+                <li><a href="reviews.html" class="nav-link">Review Us</a></li>
+                <li class="nav-auth-guest" id="nav-auth-guest">
+                <a href="login.html" class="nav-link">Login</a>
+            </li>
+                <li class="nav-cta-mobile"><a href="appointment.html" class="btn btn-primary">Book Appointment</a></li>
+            </ul>
+            <a href="appointment.html" class="btn btn-primary nav-cta-desktop">Book Appointment</a>
+            <button class="nav-toggle" id="nav-toggle" aria-label="Toggle menu">
+                <i class="fa-solid fa-bars"></i>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <div class="page-header anim anim-fade-up">
+        <div class="container">
+            <h1>Book Your Appointment</h1>
+            <div class="breadcrumb">
+                <a href="index.html">Home</a>
+                <span>/</span>
+                <span class="breadcrumb-current">Book Appointment</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Appointment Steps -->
+    <section class="section" id="main-content">
+        <div class="container">
+            <div class="appointment-wrapper">
+
+                <!-- Step Indicator -->
+                <div class="stepper anim anim-fade-up">
+                    <div class="step-item active" data-step="1">
+                        <div class="step-circle">1</div>
+                        <span class="step-label">Find Specialist</span>
+                    </div>
+                    <div class="step-line"></div>
+                    <div class="step-item" data-step="2">
+                        <div class="step-circle">2</div>
+                        <span class="step-label">Schedule</span>
+                    </div>
+                    <div class="step-line"></div>
+                    <div class="step-item" data-step="3">
+                        <div class="step-circle">3</div>
+                        <span class="step-label">Your Details</span>
+                    </div>
+                    <div class="step-line"></div>
+                    <div class="step-item" data-step="4">
+                        <div class="step-circle">4</div>
+                        <span class="step-label">Confirm</span>
+                    </div>
+                </div>
+
+                <!-- Step 1: Find Specialist -->
+                <div class="step-content active" id="step-1">
+                    <div class="find-specialist">
+                        <div class="find-specialist-sidebar anim anim-fade-right">
+                                <div class="sidebar-search">
+        <i class="fa-solid fa-magnifying-glass"></i>
+        <input type="text" id="fs-search-input" placeholder="Search doctors...">
+    </div>
+                            <p class="fs-title">Department</p>
+                            <div class="fs-dept-list" id="fs-dept-list">
+                                <div class="fs-dept-item active" data-dept="all">
+                                    <i class="fa-solid fa-user-doctor"></i> All Departments
+                                </div>
+                                <div class="fs-dept-item" data-dept="Cardiology">
+                                    <i class="fa-solid fa-heart-pulse"></i> Cardiology
+                                </div>
+                                <div class="fs-dept-item" data-dept="Neurology">
+                                    <i class="fa-solid fa-brain"></i> Neurology
+                                </div>
+                                <div class="fs-dept-item" data-dept="Orthopedics">
+                                    <i class="fa-solid fa-bone"></i> Orthopedics
+                                </div>
+                                <div class="fs-dept-item" data-dept="Pediatric">
+                                    <i class="fa-solid fa-baby"></i> Pediatric
+                                </div>
+                                <div class="fs-dept-item" data-dept="General Medicine">
+                                    <i class="fa-solid fa-stethoscope"></i> General Medicine
+                                </div>
+                                <div class="fs-dept-item" data-dept="Emergency">
+                                    <i class="fa-solid fa-truck-medical"></i> Emergency
+                                </div>
+                            </div>
+
+                            <span class="fs-gender-label">Preferred Gender</span>
+                            <div class="fs-gender-options">
+                                <button class="fs-gender-btn active" data-gender="all">
+                                    <i class="fa-solid fa-users"></i> Any
+                                </button>
+                                <button class="fs-gender-btn" data-gender="male">
+                                    <i class="fa-solid fa-mars"></i> Male
+                                </button>
+                                <button class="fs-gender-btn" data-gender="female">
+                                    <i class="fa-solid fa-venus"></i> Female
+                                </button>
+                            </div>
+
+                            <div class="need-help" style="margin-top: 28px;">
+                                <h4>Need Help?</h4>
+                                <p>Not sure which specialist to choose? Call us for guidance.</p>
+                                <a href="tel:+18002345678"><i class="fa-solid fa-phone"></i> +1 (800) 234-5678</a>
+                            </div>
+                        </div>
+
+                        <div class="find-specialist-main anim anim-fade-left" id="fs-doctor-list">
+                            <div class="text-center" style="padding:40px;color:#727780;">
+                                <i class="fa-solid fa-spinner fa-spin" style="font-size:20px;"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Step 2: Schedule -->
+                <div class="step-content" id="step-2">
+                    <div class="schedule-layout">
+                        <div class="schedule-calendar anim anim-fade-right">
+                            <div class="calendar-header">
+                                <h3 id="calendar-month-year"></h3>
+                                <div class="calendar-nav">
+                                    <button id="cal-prev" aria-label="Previous month"><i class="fa-solid fa-chevron-left"></i></button>
+                                    <button id="cal-next" aria-label="Next month"><i class="fa-solid fa-chevron-right"></i></button>
+                                </div>
+                            </div>
+                            <div class="calendar-weekdays">
+                                <div class="calendar-weekday">Sun</div>
+                                <div class="calendar-weekday">Mon</div>
+                                <div class="calendar-weekday">Tue</div>
+                                <div class="calendar-weekday">Wed</div>
+                                <div class="calendar-weekday">Thu</div>
+                                <div class="calendar-weekday">Fri</div>
+                                <div class="calendar-weekday">Sat</div>
+                            </div>
+                            <div class="calendar-days" id="calendar-days"></div>
+                        </div>
+
+                        <div class="schedule-sidebar anim anim-fade-left">
+                            <div class="selected-doctor-card" id="selected-doctor-card"></div>
+                            <div class="time-slots-section" id="time-slots-section">
+                                <p class="time-slots-title">Available Time Slots</p>
+                                <p class="time-slots-subtitle" id="time-slots-subtitle">Select a date to view slots</p>
+                                <div id="time-slots-container"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="step-actions">
+                        <button class="btn btn-outline" id="step2-back"><i class="fa-solid fa-arrow-left"></i> Back</button>
+                        <div class="selection-summary" id="selection-summary"></div>
+                        <button class="btn btn-primary" id="step2-next" disabled>Next Step <i class="fa-solid fa-arrow-right"></i></button>
+                    </div>
+                </div>
+
+                <!-- Step 3: Patient Details -->
+                <div class="step-content" id="step-3">
+                    <div class="patient-layout">
+                        <div class="patient-form-area anim anim-fade-right">
+                            <div class="patient-form-card">
+                                <h3>Personal Information</h3>
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label class="form-label">Full Name <span class="required">*</span></label>
+                                        <input type="text" class="form-input" id="patient-name" placeholder="John Doe">
+                                        <span class="form-error" id="err-name">Please enter your full name</span>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label">Date of Birth <span class="required">*</span></label>
+                                        <input type="date" class="form-input" id="patient-dob">
+                                        <span class="form-error" id="err-dob">Please select your date of birth</span>
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label class="form-label">Gender <span class="required">*</span></label>
+                                        <select class="form-select" id="patient-gender">
+                                            <option value="">Select Gender</option>
+                                            <option value="male">Male</option>
+                                            <option value="female">Female</option>
+                                            <option value="other">Other</option>
+                                        </select>
+                                        <span class="form-error" id="err-gender">Please select your gender</span>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label">Blood Group</label>
+                                        <select class="form-select" id="patient-blood">
+                                            <option value="">Select Blood Group</option>
+                                            <option value="a+">A+</option>
+                                            <option value="a-">A-</option>
+                                            <option value="b+">B+</option>
+                                            <option value="b-">B-</option>
+                                            <option value="ab+">AB+</option>
+                                            <option value="ab-">AB-</option>
+                                            <option value="o+">O+</option>
+                                            <option value="o-">O-</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="patient-form-card">
+                                <h3>Contact Information</h3>
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label class="form-label">Phone Number <span class="required">*</span></label>
+                                        <input type="tel" class="form-input" id="patient-phone" placeholder="+1 (234) 567-8900">
+                                        <span class="form-error" id="err-phone">Please enter a valid phone number</span>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label">Email Address <span class="required">*</span></label>
+                                        <input type="email" class="form-input" id="patient-email" placeholder="john@example.com">
+                                        <span class="form-error" id="err-email">Please enter a valid email address</span>
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group full-width">
+                                        <label class="form-label">Reason for Visit</label>
+                                        <textarea class="form-textarea" id="patient-reason" placeholder="Briefly describe your symptoms or reason for the visit..."></textarea>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="patient-form-card">
+                                <h3>Insurance Information <span style="font-size:13px;font-weight:400;color:#727780;">(Optional)</span></h3>
+                                <div class="form-row">
+                                    <div class="form-group full-width">
+                                        <label class="form-label">Insurance Card</label>
+                                        <div class="file-upload" id="file-upload">
+                                            <input type="file" id="insurance-file" accept="image/*,.pdf">
+                                            <i class="fa-solid fa-cloud-arrow-up"></i>
+                                            <p>Click to upload or drag and drop</p>
+                                            <span>PNG, JPG, PDF (max 5MB)</span>
+                                            <div class="file-name" id="file-name"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label class="form-label">Provider Name</label>
+                                        <input type="text" class="form-input" id="insurance-provider" placeholder="e.g. Blue Cross">
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label">Policy Number</label>
+                                        <input type="text" class="form-input" id="insurance-policy" placeholder="e.g. BC-12345678">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="appointment-summary anim anim-fade-left">
+                            <div class="summary-card">
+                                <h3>Appointment Summary</h3>
+                                <div class="summary-row">
+                                    <span class="summary-row-label">Doctor</span>
+                                    <span class="summary-row-value" id="sum-doctor">—</span>
+                                </div>
+                                <div class="summary-row">
+                                    <span class="summary-row-label">Specialty</span>
+                                    <span class="summary-row-value" id="sum-specialty">—</span>
+                                </div>
+                                <div class="summary-row">
+                                    <span class="summary-row-label">Date</span>
+                                    <span class="summary-row-value" id="sum-date">—</span>
+                                </div>
+                                <div class="summary-row">
+                                    <span class="summary-row-label">Time</span>
+                                    <span class="summary-row-value" id="sum-time">—</span>
+                                </div>
+                                <div class="summary-row">
+                                    <span class="summary-row-label">Location</span>
+                                    <span class="summary-row-value" id="sum-location">—</span>
+                                </div>
+                                <hr class="summary-divider">
+                                <div class="summary-fee">
+                                    <span>Consultation Fee</span>
+                                    <span class="fee-amount">$150</span>
+                                </div>
+                                <a class="summary-change" id="summary-change"><i class="fa-solid fa-pen"></i> Change selection</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="step-actions">
+                        <button class="btn btn-outline" id="step3-back"><i class="fa-solid fa-arrow-left"></i> Back</button>
+                        <div class="selection-summary"></div>
+                        <button class="btn btn-primary" id="step3-next">Next Step <i class="fa-solid fa-arrow-right"></i></button>
+                    </div>
+                </div>
+
+                <!-- Step 4: Confirmation -->
+                <div class="step-content" id="step-4">
+                    <div class="confirmation-layout">
+                        <div class="confirmation-main">
+                            <div class="confirmation-success">
+                                <div class="confirmation-icon"><i class="fa-solid fa-check"></i></div>
+                                <h2>Appointment Successfully Scheduled!</h2>
+                                <p>Your appointment has been confirmed. You will receive a confirmation email with all the details shortly.</p>
+                                <div class="confirmation-ref"><i class="fa-solid fa-hashtag"></i> Ref: <span id="confirm-ref">FH-2025-00000</span></div>
+                            </div>
+                            <div class="confirmation-card">
+                                <h3>Appointment Details</h3>
+                                <div class="confirm-detail-row">
+                                    <div class="confirm-detail-icon"><i class="fa-solid fa-user-doctor"></i></div>
+                                    <div class="confirm-detail-text">
+                                        <div class="confirm-detail-label">Doctor</div>
+                                        <div class="confirm-detail-value" id="confirm-doctor">—</div>
+                                    </div>
+                                </div>
+                                <div class="confirm-detail-row">
+                                    <div class="confirm-detail-icon"><i class="fa-solid fa-user"></i></div>
+                                    <div class="confirm-detail-text">
+                                        <div class="confirm-detail-label">Patient</div>
+                                        <div class="confirm-detail-value" id="confirm-patient">—</div>
+                                    </div>
+                                </div>
+                                <div class="confirm-detail-row">
+                                    <div class="confirm-detail-icon"><i class="fa-regular fa-calendar"></i></div>
+                                    <div class="confirm-detail-text">
+                                        <div class="confirm-detail-label">Date & Time</div>
+                                        <div class="confirm-detail-value" id="confirm-datetime">—</div>
+                                    </div>
+                                </div>
+                                <div class="confirm-detail-row">
+                                    <div class="confirm-detail-icon"><i class="fa-solid fa-location-dot"></i></div>
+                                    <div class="confirm-detail-text">
+                                        <div class="confirm-detail-label">Location</div>
+                                        <div class="confirm-detail-value" id="confirm-location">—</div>
+                                    </div>
+                                </div>
+                                <div class="confirm-detail-row">
+                                    <div class="confirm-detail-icon"><i class="fa-solid fa-file-medical"></i></div>
+                                    <div class="confirm-detail-text">
+                                        <div class="confirm-detail-label">Reason</div>
+                                        <div class="confirm-detail-value" id="confirm-reason">—</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="confirmation-actions">
+                                <button class="btn btn-outline" id="confirm-print"><i class="fa-solid fa-print"></i> Print Details</button>
+                                <a href="index.html" class="btn btn-primary"><i class="fa-solid fa-house"></i> Back to Home</a>
+                            </div>
+                        </div>
+                        <div class="prepare-sidebar">
+                            <div class="prepare-card">
+                                <h3>Before Your Visit</h3>
+                                <div class="prepare-item">
+                                    <div class="prepare-item-icon"><i class="fa-solid fa-clock"></i></div>
+                                    <div class="prepare-item-text">
+                                        <strong>Arrive 15 Minutes Early</strong>
+                                        Complete registration and any pending paperwork before your scheduled time.
+                                    </div>
+                                </div>
+                                <div class="prepare-item">
+                                    <div class="prepare-item-icon"><i class="fa-solid fa-id-card"></i></div>
+                                    <div class="prepare-item-text">
+                                        <strong>Bring Valid ID</strong>
+                                        Government-issued photo ID is required for verification.
+                                    </div>
+                                </div>
+                                <div class="prepare-item">
+                                    <div class="prepare-item-icon"><i class="fa-solid fa-file-invoice"></i></div>
+                                    <div class="prepare-item-text">
+                                        <strong>Insurance Card</strong>
+                                        Carry your original insurance card if you provided insurance details.
+                                    </div>
+                                </div>
+                                <div class="prepare-item">
+                                    <div class="prepare-item-icon"><i class="fa-solid fa-notes-medical"></i></div>
+                                    <div class="prepare-item-text">
+                                        <strong>Medical Records</strong>
+                                        Bring any previous reports, prescriptions, or test results related to your visit.
+                                    </div>
+                                </div>
+                                <div class="prepare-item">
+                                    <div class="prepare-item-icon"><i class="fa-solid fa-pills"></i></div>
+                                    <div class="prepare-item-text">
+                                        <strong>Current Medications</strong>
+                                        Note down any medications you are currently taking.
+                                    </div>
+                                </div>
+                                <div class="prepare-note">
+                                    <i class="fa-solid fa-triangle-exclamation"></i>
+                                    If you need to reschedule or cancel, please do so at least 24 hours in advance to avoid any fees.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="grid grid-4">
+                <div class="footer-col">
+                    <a href="#" class="logo">
+                        <img src="asset/logo.png" alt="Family Hospital" onerror="this.style.display='none';this.parentElement.innerHTML='&lt;span class=&quot;logo-text footer-logo-text&quot;&gt;Family&lt;span&gt;Hospital&lt;/span&gt;&lt;/span&gt;';">
+                    </a>
+                    <p>Providing compassionate, high-quality healthcare for families since 2009. Your health is our mission.</p>
+                    <div class="footer-social">
+                        <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
+                        <a href="#"><i class="fa-brands fa-twitter"></i></a>
+                        <a href="#"><i class="fa-brands fa-instagram"></i></a>
+                        <a href="#"><i class="fa-brands fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+                <div class="footer-col">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="services.html">Services</a></li>
+                        <li><a href="doctors.html">Our Doctors</a></li>
+                        
+                        
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Services</h4>
+                    <ul>
+                        <li><a href="services.html">Cardiology</a></li>
+                        <li><a href="services.html">Neurology</a></li>
+                        <li><a href="services.html">Emergency Care</a></li>
+                        <li><a href="services.html">Orthopedics</a></li>
+                        <li><a href="services.html">Pediatric Care</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Contact Us</h4>
+                    <ul class="footer-contact">
+                        <li><i class="fa-solid fa-location-dot"></i> 123 Healthcare Ave, Medical City, MC 45678</li>
+                        <li><i class="fa-solid fa-phone"></i> +1 (800) 234-5678</li>
+                        <li><i class="fa-solid fa-envelope"></i> info@familyhospital.com</li>
+                        <li><i class="fa-solid fa-clock"></i> Mon – Sat: 8AM – 8PM</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom text-center">
+                <p>2026 Family Hospital. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <button class="go-top-btn" id="go-top-btn" aria-label="Go to top">
+        <i class="fa-solid fa-chevron-up"></i>
+    </button>
+
+    <!-- Accessibility -->
+<div class="a11y-toolbar">
+    <div class="a11y-panel" id="a11y-panel">
+        <div class="a11y-panel-header">
+            <h4><i class="fa-solid fa-universal-access"></i> Accessibility</h4>
+            <button class="a11y-panel-close" id="a11y-panel-close" aria-label="Close accessibility panel"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+
+        <div>
+            <div class="a11y-option-label" style="margin-bottom:8px;font-size:12px;font-weight:600;color:#727780;text-transform:uppercase;letter-spacing:0.05em;">Text Size</div>
+            <div class="a11y-font-sizes">
+                <button class="a11y-font-btn small" data-size="small" aria-label="Small text">A<sup style="−</sup></button>
+                <button class="a11y-font-btn default active" data-size="default" aria-label="Default text">A</button>
+                <button class="a11y-font-btn large" data-size="large" aria-label="Large text">A<sup>+</sup></button>
+            </div>
+        </div>
+
+        <div class="a11y-option">
+            <span class="a11y-option-label"><i class="fa-solid fa-circle-half-stroke"></i> High Contrast</span>
+            <label class="a11y-switch"><input type="checkbox" id="a11y-contrast"><span class="a11y-slider"></span></label>
+        </div>
+
+        <div class="a11y-option">
+            <span class="a11y-option-label"><i class="fa-solid fa-droplet"></i> Grayscale</span>
+            <label class="a11y-switch"><input type="checkbox" id="a11y-grayscale"><span class="a11y-slider"></span></label>
+        </div>
+
+        <div class="a11y-option">
+            <span class="a11y-option-label"><i class="fa-solid fa-font"></i> Readable Font</span>
+            <label class="a11y-switch"><input type="checkbox" id="a11y-readable"><span class="a11y-slider"></span></label>
+        </div>
+
+        <div class="a11y-option">
+            <span class="a11y-option-label"><i class="fa-solid fa-pause"></i> Disable Animations</span>
+            <label class="a11y-switch"><input type="checkbox" id="a11y-motion"><span class="a11y-slider"></span></label>
+        </div>
+
+        <div class="a11y-option">
+            <span class="a11y-option-label"><i class="fa-solid fa-link"></i> Highlight Links</span>
+            <label class="a11y-switch"><input type="checkbox" id="a11y-links"><span class="a11y-slider"></span></label>
+        </div>
+
+        <button class="a11y-reset-btn" id="a11y-reset"><i class="fa-solid fa-rotate-left"></i> Reset All Settings</button>
+    </div>
+    <button class="a11y-toggle" id="a11y-toggle" aria-label="Open accessibility settings">
+        <i class="fa-solid fa-universal-access"></i>
+    </button>
+</div>
+
+    <div class="chatbot">
+        <div class="chatbot-panel" id="chatbot-panel">
+            <div class="chatbot-header">
+                <h4>Chat with Us</h4>
+                <button class="chatbot-close" id="chatbot-close" aria-label="Close chat"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div class="chatbot-messages" id="chatbot-messages">
+                <div class="chat-msg bot"><p>Hello! How can we help you today?</p></div>
+            </div>
+            <form class="chatbot-input" id="chatbot-form">
+                <input type="text" id="chatbot-input" placeholder="Type your message..." autocomplete="off">
+                <button type="submit" aria-label="Send message"><i class="fa-solid fa-paper-plane"></i></button>
+            </form>
+        </div>
+        <button class="chatbot-toggle" id="chatbot-toggle" aria-label="Open chat"><i class="fa-solid fa-comment-dots"></i></button>
+    </div>
+
+    <script src="script.js"></script>
+
+    <script>
+(function() {
+    var API = 'http://localhost:5000/api';
+    var specialistData = {};
+    var currentDept = 'all';
+    var currentGender = 'all';
+    var currentSearch = '';
+    var selectedDoctor = null;
+    var selectedDate = null;
+    var selectedTime = null;
+    var apiRef = null;
+    var calendarYear, calendarMonth;
+    var dayNames = ['sun', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat'];
+    var monthNames = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+
+    // Load doctors from API
+    function loadDoctorsFromAPI(dept) {
+        var container = document.getElementById('fs-doctor-list');
+        container.innerHTML = '<div class="text-center" style="padding:30px;color:#727780;"><i class="fa-solid fa-spinner fa-spin"></i></div>';
+        var url = API + '/doctors';
+        if (dept && dept !== 'all') url += '?department=' + encodeURIComponent(dept);
+
+        fetch(url)
+            .then(function(r) { return r.json(); })
+            .then(function(docs) {
+                docs.forEach(function(d) {
+                    if (d.schedule instanceof Map) d.schedule = Object.fromEntries(d.schedule);
+                });
+                specialistData[dept] = docs;
+                renderDoctors();
+            })
+            .catch(function() {
+                container.innerHTML = '<div class="no-results"><i class="fa-solid fa-circle-exclamation"></i><p>Failed to load doctors.</p></div>';
+            });
+    }
+
+    function renderStars(r) {
+        var h = '', f = Math.floor(r), half = r % 1 >= 0.5;
+        for (var i = 0; i < f; i++) h += '<i class="fa-solid fa-star"></i>';
+        if (half) h += '<i class="fa-solid fa-star-half-stroke"></i>';
+        for (var j = 0; j < 5 - f - (half ? 1 : 0); j++) h += '<i class="fa-regular fa-star"></i>';
+        return h;
+    }
+
+    function renderDoctors() {
+        var list = specialistData[currentDept] || [];
+        var container = document.getElementById('fs-doctor-list');
+        var filtered = list;
+
+        // Filter by gender
+        if (currentGender !== 'all') {
+            filtered = filtered.filter(function(d) { return d.gender === currentGender; });
+        }
+
+        // Filter by search
+        if (currentSearch) {
+            filtered = filtered.filter(function(d) {
+                return d.name.toLowerCase().indexOf(currentSearch) !== -1 ||
+                       (d.department || '').toLowerCase().indexOf(currentSearch) !== -1 ||
+                       (d.title || '').toLowerCase().indexOf(currentSearch) !== -1 ||
+                       (d.qualification || '').toLowerCase().indexOf(currentSearch) !== -1 ||
+                       (d.tags || []).some(function(t) { return t.toLowerCase().indexOf(currentSearch) !== -1; });
+            });
+        }
+
+        if (filtered.length === 0) {
+            container.innerHTML = '<div class="no-results"><i class="fa-solid fa-user-doctor"></i><p>No doctors found for this filter.</p></div>';
+            return;
+        }
+        var html = '';
+        filtered.forEach(function(d) {
+            var img = d.image
+                ? '<div class="specialist-img"><img src="http://localhost:5000' + d.image + '" alt="' + d.name + '"></div>'
+                : '<div class="specialist-img specialist-placeholder"><i class="fa-solid fa-user-doctor"></i></div>';
+            html += '<div class="card specialist-card">' +
+                '<div class="specialist-img">' + img + '</div>' +
+                '<div class="specialist-info">' +
+                    '<h3>' + d.name + '</h3>' +
+                    '<span class="doctor-specialty">' + (d.title || d.department) + '</span>' +
+                    '<div class="specialist-rating">' + renderStars(d.rating) + '<span>' + d.rating + ' (' + d.reviews + ' reviews)</span></div>' +
+                    '<div class="specialist-tags">' + (d.tags || []).map(function(t) { return '<span class="specialist-tag">' + t + '</span>'; }).join('') + '</div>' +
+                    '<div class="specialist-location"><i class="fa-solid fa-location-dot"></i> ' + d.location + '</div>' +
+                    '<div class="specialist-actions"><button class="btn btn-primary select-doctor-btn" data-id="' + d._id + '">Select Doctor</button></div>' +
+                '</div></div>';
+        });
+        container.innerHTML = html;
+
+        container.querySelectorAll('.select-doctor-btn').forEach(function(btn) {
+            btn.addEventListener('click', function() {
+                var docId = this.getAttribute('data-id');
+                selectedDoctor = filtered.find(function(d) { return d._id === docId; });
+                if (selectedDoctor) goToStep(2);
+            });
+        });
+    }
+
+    // Search input
+    document.getElementById('fs-search-input').addEventListener('input', function() {
+        currentSearch = this.value.trim().toLowerCase();
+        renderDoctors();
+    });
+
+    document.querySelectorAll('#fs-dept-list .fs-dept-item').forEach(function(item) {
+        item.addEventListener('click', function() {
+            document.querySelectorAll('#fs-dept-list .fs-dept-item').forEach(function(i) { i.classList.remove('active'); });
+            this.classList.add('active');
+            currentDept = this.getAttribute('data-dept');
+            currentSearch = '';
+            document.getElementById('fs-search-input').value = '';
+            if (!specialistData[currentDept]) {
+                loadDoctorsFromAPI(currentDept);
+            } else {
+                renderDoctors();
+            }
+        });
+    });
+
+    document.querySelectorAll('.fs-gender-btn').forEach(function(btn) {
+        btn.addEventListener('click', function() {
+            document.querySelectorAll('.fs-gender-btn').forEach(function(b) { b.classList.remove('active'); });
+            this.classList.add('active');
+            currentGender = this.getAttribute('data-gender');
+            renderDoctors();
+        });
+    });
+
+    // Step Navigation
+    var currentStep = 1;
+    var totalSteps = 4;
+
+    function goToStep(step) {
+        if (step < 1 || step > totalSteps) return;
+        document.getElementById('step-' + currentStep).classList.remove('active');
+        var stepItems = document.querySelectorAll('.step-item');
+        var stepLines = document.querySelectorAll('.step-line');
+        stepItems.forEach(function(item, index) {
+            var s = index + 1;
+            item.classList.remove('active', 'done');
+            if (s < step) {
+                item.classList.add('done');
+                item.querySelector('.step-circle').innerHTML = '<i class="fa-solid fa-check" style="font-size:14px;"></i>';
+            } else if (s === step) {
+                item.classList.add('active');
+                item.querySelector('.step-circle').textContent = s;
+            } else {
+                item.querySelector('.step-circle').textContent = s;
+            }
+        });
+        stepLines.forEach(function(line, index) { line.classList.toggle('done', index < step - 1); });
+        document.getElementById('step-' + step).classList.add('active');
+        currentStep = step;
+        if (step === 2) initStep2();
+        if (step === 3) { initStep3(); initStep4(); }
+        window.scrollTo({ top: document.querySelector('.stepper').offsetTop - 120, behavior: 'smooth' });
+    }
+
+    // Step 2: Schedule
+    function initStep2() {
+        selectedDate = null;
+        selectedTime = null;
+        updateNextButton();
+        renderSelectedDoctor();
+        var now = new Date();
+        calendarYear = now.getFullYear();
+        calendarMonth = now.getMonth();
+        renderCalendar();
+    }
+
+    function renderSelectedDoctor() {
+        var container = document.getElementById('selected-doctor-card');
+        if (!selectedDoctor) {
+            container.innerHTML = '<p style="color:#727780;text-align:center;padding:20px;">No doctor selected</p>';
+            return;
+        }
+        var d = selectedDoctor;
+        container.innerHTML =
+            '<div class="doctor-top"><div class="doctor-top"><img src="http://localhost:5000' + d.image + '" alt="' + d.name + '"></div><div><h4>' + d.name + '</h4><span>' + (d.title || d.department) + '</span></div></div>' +
+            '<div class="selected-doctor-info"><p><i class="fa-solid fa-star"></i> ' + d.rating + ' (' + d.reviews + ' reviews)</p><p><i class="fa-solid fa-location-dot"></i> ' + d.location + '</p></div>';
+    }
+
+    function renderCalendar() {
+        document.getElementById('calendar-month-year').textContent = monthNames[calendarMonth] + ' ' + calendarYear;
+        document.getElementById('cal-prev').disabled = (calendarYear === new Date().getFullYear() && calendarMonth <= new Date().getMonth());
+
+        var container = document.getElementById('calendar-days');
+        var firstDay = new Date(calendarYear, calendarMonth, 1).getDay();
+        var daysInMonth = new Date(calendarYear, calendarMonth + 1, 0).getDate();
+        var today = new Date();
+        today.setHours(0, 0, 0, 0);
+
+        var html = '';
+        for (var i = 0; i < firstDay; i++) html += '<div class="calendar-day empty"></div>';
+        for (var d = 1; d <= daysInMonth; d++) {
+            var date = new Date(calendarYear, calendarMonth, d);
+            date.setHours(0, 0, 0, 0);
+            var isPast = date < today;
+            var isToday = date.getTime() === today.getTime();
+            var isSelected = selectedDate && date.getTime() === selectedDate.getTime();
+            var classes = 'calendar-day';
+            if (isPast) classes += ' disabled';
+            if (isToday) classes += ' today';
+            if (isSelected) classes += ' selected';
+            html += '<div class="' + classes + '" data-date="' + calendarYear + '-' + String(calendarMonth + 1).padStart(2, '0') + '-' + String(d).padStart(2, '0') + '">' + d + '</div>';
+        }
+        container.innerHTML = html;
+
+        container.querySelectorAll('.calendar-day:not(.disabled):not(.empty)').forEach(function(el) {
+    el.addEventListener('click', function() {
+        container.querySelectorAll('.calendar-day').forEach(function(c) { c.classList.remove('selected'); });
+        this.classList.add('selected');
+        var parts = this.getAttribute('data-date').split('-');
+        selectedDate = new Date(parseInt(parts[0]), parseInt(parts[1]) - 1, parseInt(parts[2]));
+        selectedTime = null;
+        updateNextButton();
+        document.getElementById('time-slots-container').innerHTML = '<div class="no-slots-msg"><i class="fa-solid fa-spinner fa-spin"></i><p>Loading slots...</p></div>';
+        fetchBookedSlots(renderTimeSlots);
+    });
+});
+    }
+
+    document.getElementById('cal-prev').addEventListener('click', function() { calendarMonth--; if (calendarMonth < 0) { calendarMonth = 11; calendarYear--; } renderCalendar(); });
+    document.getElementById('cal-next').addEventListener('click', function() { calendarMonth++; if (calendarMonth > 11) { calendarMonth = 0; calendarYear++; } renderCalendar(); });
+
+    function renderTimeSlots() {
+    var container = document.getElementById('time-slots-container');
+    var subtitle = document.getElementById('time-slots-subtitle');
+    if (!selectedDate) {
+        subtitle.textContent = 'Select a date to view slots';
+        container.innerHTML = '<div class="no-slots-msg"><i class="fa-regular fa-calendar"></i><p>Please select a date from the calendar</p></div>';
+        return;
+    }
+    subtitle.textContent = selectedDate.toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' });
+
+    if (!selectedDoctor || !selectedDoctor.schedule) {
+        container.innerHTML = '<div class="no-slots-msg"><i class="fa-regular fa-clock"></i><p>No schedule available</p></div>';
+        return;
+    }
+
+    var dayKey = dayNames[selectedDate.getDay()];
+    var slots = selectedDoctor.schedule[dayKey] || [];
+    if (slots.length === 0) {
+        container.innerHTML = '<div class="no-slots-msg"><i class="fa-regular fa-clock"></i><p>No available slots on this day</p></div>';
+        return;
+    }
+
+    var morning = slots.filter(function(s) { return parseInt(s) < 12; });
+    var afternoon = slots.filter(function(s) { return parseInt(s) >= 12; });
+
+    function isBooked(slot) {
+        return bookedSlotsList.indexOf(slot) !== -1;
+    }
+
+    var html = '';
+    if (morning.length > 0) {
+        html += '<div class="time-slots-group"><p class="time-slots-group-label">Morning</p><div class="time-slots-grid">';
+        morning.forEach(function(slot) {
+            var booked = isBooked(slot);
+            var h = parseInt(slot.split(':')[0]), m = slot.split(':')[1], ampm = h >= 12 ? 'PM' : 'AM';
+            var dh = h > 12 ? h - 12 : (h === 0 ? 12 : h);
+            var display = String(dh).padStart(2, '0') + ':' + m + ' ' + ampm;
+            var cls = 'time-slot';
+            if (booked) cls += ' disabled';
+            if (selectedTime === slot) cls += ' selected';
+            html += '<button class="' + cls + '" data-time="' + slot + '"' + (booked ? ' disabled' : '') + '>' + display + (booked ? ' <i class="fa-solid fa-ban" style="font-size:10px;margin-left:4px;"></i>' : '') + '</button>';
+        });
+        html += '</div></div>';
+    }
+    if (afternoon.length > 0) {
+        html += '<div class="time-slots-group"><p class="time-slots-group-label">Afternoon</p><div class="time-slots-grid">';
+        afternoon.forEach(function(slot) {
+            var booked = isBooked(slot);
+            var h = parseInt(slot.split(':')[0]), m = slot.split(':')[1], ampm = h >= 12 ? 'PM' : 'AM';
+            var dh = h > 12 ? h - 12 : (h === 0 ? 12 : h);
+            var display = String(dh).padStart(2, '0') + ':' + m + ' ' + ampm;
+            var cls = 'time-slot';
+            if (booked) cls += ' disabled';
+            if (selectedTime === slot) cls += ' selected';
+            html += '<button class="' + cls + '" data-time="' + slot + '"' + (booked ? ' disabled' : '') + '>' + display + (booked ? ' <i class="fa-solid fa-ban" style="font-size:10px;margin-left:4px;"></i>' : '') + '</button>';
+        });
+        html += '</div></div>';
+    }
+    container.innerHTML = html;
+
+    container.querySelectorAll('.time-slot:not(.disabled)').forEach(function(btn) {
+        btn.addEventListener('click', function() {
+            container.querySelectorAll('.time-slot').forEach(function(b) { b.classList.remove('selected'); });
+            this.classList.add('selected');
+            selectedTime = this.getAttribute('data-time');
+            updateNextButton();
+        });
+    });
+}
+
+    function formatTime12(slot) {
+        if (!slot) return '';
+        var h = parseInt(slot.split(':')[0]), m = slot.split(':')[1], ampm = h >= 12 ? 'PM' : 'AM';
+        var dh = h > 12 ? h - 12 : (h === 0 ? 12 : h);
+        return String(dh).padStart(2, '0') + ':' + m + ' ' + ampm;
+    }
+
+    var bookedSlotsList = [];
+
+function fetchBookedSlots(callback) {
+    if (!selectedDoctor || !selectedDate) {
+        bookedSlotsList = [];
+        callback();
+        return;
+    }
+    var dateStr = selectedDate.toISOString().split('T')[0];
+    fetch(API + '/appointments/booked?doctor=' + selectedDoctor._id + '&date=' + dateStr)
+        .then(function(r) { return r.json(); })
+        .then(function(slots) {
+            bookedSlotsList = slots;
+            callback();
+        })
+        .catch(function() {
+            bookedSlotsList = [];
+            callback();
+        });
+}
+
+    function updateNextButton() {
+        var btn = document.getElementById('step2-next');
+        var summary = document.getElementById('selection-summary');
+        if (selectedDate && selectedTime) {
+            btn.disabled = false;
+            var dateStr = selectedDate.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+            summary.innerHTML = '<strong>' + dateStr + '</strong> at <strong>' + formatTime12(selectedTime) + '</strong>';
+        } else {
+            btn.disabled = true;
+            summary.innerHTML = '';
+        }
+    }
+
+    document.getElementById('step2-back').addEventListener('click', function() { goToStep(1); });
+    document.getElementById('step2-next').addEventListener('click', function() { if (selectedDoctor && selectedDate && selectedTime) goToStep(3); });
+
+    // Step 3: Patient Details
+    function initStep3() {
+        renderSummary();
+        clearFormErrors();
+        document.getElementById('file-name').classList.remove('visible');
+        document.getElementById('file-name').textContent = '';
+        document.getElementById('insurance-file').value = '';
+    }
+
+    function renderSummary() {
+        document.getElementById('sum-doctor').textContent = selectedDoctor ? selectedDoctor.name : '—';
+        document.getElementById('sum-specialty').textContent = selectedDoctor ? selectedDoctor.department : '—';
+        document.getElementById('sum-date').textContent = selectedDate ? selectedDate.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric', year: 'numeric' }) : '—';
+        document.getElementById('sum-time').textContent = selectedTime ? formatTime12(selectedTime) : '—';
+        document.getElementById('sum-location').textContent = selectedDoctor ? selectedDoctor.location : '—';
+    }
+
+    document.getElementById('summary-change').addEventListener('click', function() { goToStep(1); });
+
+    document.getElementById('insurance-file').addEventListener('change', function() {
+        var fn = document.getElementById('file-name');
+        if (this.files && this.files[0]) {
+            fn.textContent = this.files[0].name;
+            fn.classList.add('visible');
+        } else {
+            fn.classList.remove('visible');
+            fn.textContent = '';
+        }
+    });
+
+    function clearFormErrors() {
+        document.querySelectorAll('.form-error').forEach(function(e) { e.classList.remove('visible'); });
+        document.querySelectorAll('.form-input, .form-select, .form-textarea').forEach(function(e) { e.classList.remove('error'); });
+    }
+
+    function showFieldError(inputId, errorId) {
+        document.getElementById(inputId).classList.add('error');
+        document.getElementById(errorId).classList.add('visible');
+    }
+
+    function validateStep3() {
+        clearFormErrors();
+        var valid = true;
+        var name = document.getElementById('patient-name').value.trim();
+        var dob = document.getElementById('patient-dob').value;
+        var gender = document.getElementById('patient-gender').value;
+        var phone = document.getElementById('patient-phone').value.trim();
+        var email = document.getElementById('patient-email').value.trim();
+        if (!name || name.length < 2) { showFieldError('patient-name', 'err-name'); valid = false; }
+        if (!dob) { showFieldError('patient-dob', 'err-dob'); valid = false; }
+        if (!gender) { showFieldError('patient-gender', 'err-gender'); valid = false; }
+        if (!phone || phone.replace(/\D/g, '').length < 7) { showFieldError('patient-phone', 'err-phone'); valid = false; }
+        var emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!email || !emailPattern.test(email)) { showFieldError('patient-email', 'err-email'); valid = false; }
+        return valid;
+    }
+
+    document.getElementById('step3-back').addEventListener('click', function() { goToStep(2); });
+    document.getElementById('step3-next').addEventListener('click', function() {
+        if (!validateStep3()) return;
+
+        var btn = this;
+        var originalText = btn.innerHTML;
+        btn.disabled = true;
+        btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Booking...';
+
+        fetch('http://localhost:5000/api/appointments', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                doctor: selectedDoctor._id,
+                patientName: document.getElementById('patient-name').value.trim(),
+                patientEmail: document.getElementById('patient-email').value.trim(),
+                patientPhone: document.getElementById('patient-phone').value.trim(),
+                patientDOB: document.getElementById('patient-dob').value,
+                patientGender: document.getElementById('patient-gender').value,
+                patientBloodGroup: document.getElementById('patient-blood').value,
+                reason: document.getElementById('patient-reason').value.trim(),
+                date: selectedDate.toISOString().split('T')[0],
+                time: selectedTime,
+                insuranceProvider: document.getElementById('insurance-provider').value.trim(),
+                insurancePolicy: document.getElementById('insurance-policy').value.trim()
+            })
+        })
+        .then(function(r) {
+            if (!r.ok) throw new Error('Server error ' + r.status);
+            return r.json();
+        })
+        .then(function(data) {
+            apiRef = data.reference;
+            goToStep(4);
+        })
+        .catch(function(err) {
+            alert('Failed to book appointment. Please try again.\n\n' + err.message);
+        })
+        .finally(function() {
+            btn.disabled = false;
+            btn.innerHTML = originalText;
+        });
+    });
+
+    ['patient-name', 'patient-dob', 'patient-gender', 'patient-phone', 'patient-email'].forEach(function(id) {
+        document.getElementById(id).addEventListener('input', function() {
+            this.classList.remove('error');
+            var errId = 'err-' + id.replace('patient-', '');
+            var errEl = document.getElementById(errId);
+            if (errEl) errEl.classList.remove('visible');
+        });
+    });
+
+    // Step 4: Confirmation
+    function initStep4() {
+        document.getElementById('confirm-ref').textContent = apiRef || 'FH-2025-' + String(Math.floor(Math.random() * 90000) + 10000);
+        document.getElementById('confirm-doctor').textContent = selectedDoctor ? selectedDoctor.name + ' — ' + selectedDoctor.department : '—';
+        document.getElementById('confirm-patient').textContent = document.getElementById('patient-name').value || '—';
+        if (selectedDate) {
+            var dateStr = selectedDate.toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric', year: 'numeric' });
+            document.getElementById('confirm-datetime').innerHTML = dateStr + '<small>' + (selectedTime ? formatTime12(selectedTime) : '') + '</small>';
+        } else {
+            document.getElementById('confirm-datetime').textContent = '—';
+        }
+        var locText = selectedDoctor ? selectedDoctor.location : '—';
+        document.getElementById('confirm-location').innerHTML = locText + '<small>Family Hospital, Medical City</small>';
+        document.getElementById('confirm-reason').textContent = document.getElementById('patient-reason').value || 'General consultation';
+    }
+
+    document.getElementById('confirm-print').addEventListener('click', function() { window.print(); });
+
+    // Initial load
+    loadDoctorsFromAPI('all');
+})();
+</script>
+    
+</body>
+</html>

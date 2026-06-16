@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Services — Family Hospital Admin</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/admin.css">
+</head>
+<body>
+    <div class="admin-layout">
+        <aside class="sidebar">
+            <div class="sidebar-logo">
+                <h2>Family<span>Hospital</span></h2>
+                <p>Admin Panel</p>
+            </div>
+            <nav class="sidebar-nav">
+                <a href="dashboard.html"><i class="fa-solid fa-grid-2"></i> Dashboard</a>
+                <a href="doctors.html"><i class="fa-solid fa-user-doctor"></i> Doctors</a>
+                <a href="appointments.html"><i class="fa-solid fa-calendar-check"></i> Appointments</a>
+                <a href="reviews.html"><i class="fa-solid fa-star"></i> Reviews</a>
+                <a href="services.html" class="active"><i class="fa-solid fa-list-check"></i> Services</a>
+            </nav>
+            <div class="sidebar-footer">
+                <button id="logout-btn"><i class="fa-solid fa-right-from-bracket"></i> Logout</button>
+            </div>
+        </aside>
+
+        <main class="main-content">
+            <div class="page-header">
+                <h1>Manage Services</h1>
+                <button class="btn btn-primary" id="add-service-btn">
+                    <i class="fa-solid fa-plus"></i> Add Service
+                </button>
+            </div>
+
+            <div class="table-card">
+                <div class="table-header">
+                    <h2>All Services (<span id="service-count">0</span>)</h2>
+                </div>
+                <div id="services-table-wrapper">
+                    <div class="empty-state"><i class="fa-solid fa-spinner fa-spin"></i><p>Loading...</p></div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Add/Edit Modal -->
+    <div class="modal-overlay" id="service-modal">
+        <div class="modal">
+            <div class="modal-header">
+                <h2 id="modal-title">Add Service</h2>
+                <button class="modal-close" id="modal-close"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <form id="service-form">
+                <div class="modal-body">
+                    <input type="hidden" id="service-id">
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label class="form-label">Service Name <span class="req">*</span></label>
+                            <input type="text" class="form-input" id="f-name" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Icon Class</label>
+                            <input type="text" class="form-input" id="f-icon" placeholder="fa-solid fa-heart-pulse">
+                            <small style="color:#A0A4A8;font-size:11px;margin-top:4px;">Font Awesome class name</small>
+                        </div>
+                        <div class="form-group full">
+                            <label class="form-label">Description</label>
+                            <textarea class="form-textarea" id="f-description" placeholder="Brief description..."></textarea>
+                        </div>
+                        <div class="form-group full">
+                            <label class="form-label">Features (comma separated)</label>
+                            <input type="text" class="form-input" id="f-features" placeholder="e.g. Heart Surgery, ECG, Stress Test">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Featured (show on homepage)</label>
+                            <select class="form-select" id="f-featured">
+                                <option value="false">No</option>
+                                <option value="true">Yes</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <label class="form-label" style="margin-bottom:10px;">Icon Preview</label>
+                    <div id="icon-preview" style="width:56px;height:56px;border-radius:8px;background:#E3F2FD;color:#0F4C81;display:flex;align-items:center;justify-content:center;font-size:22px;margin-bottom:8px;">
+                        <i class="fa-solid fa-stethoscope"></i>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline" id="modal-cancel">Cancel</button>
+                    <button type="submit" class="btn btn-primary" id="modal-submit">Save Service</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Delete Modal -->
+    <div class="modal-overlay" id="delete-modal">
+        <div class="modal" style="width:420px;">
+            <div class="modal-header">
+                <h2>Delete Service</h2>
+                <button class="modal-close" id="delete-modal-close"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div class="modal-body" style="padding:24px;">
+                <p style="font-size:15px;margin-bottom:4px;">Are you sure you want to delete</p>
+                <p style="font-size:16px;font-weight:600;color:#00355F;" id="delete-service-name"></p>
+                <p style="font-size:13px;color:#727780;margin-top:8px;">This action cannot be undone.</p>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-outline" id="delete-cancel-btn">Cancel</button>
+                <button class="btn btn-danger" id="delete-confirm-btn">Delete</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="toast" id="toast"></div>
+    <script src="js/services.js"></script>
+</body>
+</html>

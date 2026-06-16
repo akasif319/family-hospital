@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Appointments — Family Hospital Admin</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/admin.css">
+</head>
+<body>
+    <div class="admin-layout">
+        <aside class="sidebar">
+            <div class="sidebar-logo">
+                <h2>Family<span>Hospital</span></h2>
+                <p>Admin Panel</p>
+            </div>
+            <nav class="sidebar-nav">
+                <a href="dashboard.html"><i class="fa-solid fa-grid-2"></i> Dashboard</a>
+                <a href="doctors.html"><i class="fa-solid fa-user-doctor"></i> Doctors</a>
+                <a href="appointments.html" class="active"><i class="fa-solid fa-calendar-check"></i> Appointments</a>
+                <a href="reviews.html"><i class="fa-solid fa-star"></i> Reviews</a>
+                <a href="services.html"><i class="fa-solid fa-list-check"></i> Services</a>
+            </nav>
+            <div class="sidebar-footer">
+                <button id="logout-btn"><i class="fa-solid fa-right-from-bracket"></i> Logout</button>
+            </div>
+        </aside>
+
+        <main class="main-content">
+            <div class="page-header">
+                <h1>Manage Appointments</h1>
+                <div style="display:flex;gap:10px;">
+                    <select class="form-select" id="status-filter" style="width:auto;height:38px;font-size:13px;">
+                        <option value="all">All Status</option>
+                        <option value="scheduled">Scheduled</option>
+                        <option value="completed">Completed</option>
+                        <option value="cancelled">Cancelled</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="stats-grid" style="margin-bottom:24px;">
+                <div class="stat-card">
+                    <div class="stat-card-icon blue"><i class="fa-solid fa-calendar"></i></div>
+                    <h3 id="stat-total">0</h3>
+                    <p>Total</p>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-card-icon orange"><i class="fa-solid fa-clock"></i></div>
+                    <h3 id="stat-scheduled">0</h3>
+                    <p>Scheduled</p>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-card-icon teal"><i class="fa-solid fa-circle-check"></i></div>
+                    <h3 id="stat-completed">0</h3>
+                    <p>Completed</p>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-card-icon red"><i class="fa-solid fa-circle-xmark"></i></div>
+                    <h3 id="stat-cancelled">0</h3>
+                    <p>Cancelled</p>
+                </div>
+            </div>
+
+            <div class="table-card">
+                <div class="table-header">
+                    <h2>All Appointments (<span id="apt-count">0</span>)</h2>
+                </div>
+                <div id="appointments-table-wrapper">
+                    <div class="empty-state"><i class="fa-solid fa-spinner fa-spin"></i><p>Loading...</p></div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- View Detail Modal -->
+    <div class="modal-overlay" id="detail-modal">
+        <div class="modal" style="width:520px;">
+            <div class="modal-header">
+                <h2>Appointment Details</h2>
+                <button class="modal-close" id="detail-modal-close"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div class="modal-body" id="detail-body" style="max-height:none;">
+                <!-- Filled by JS -->
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-outline" id="detail-close-btn">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="toast" id="toast"></div>
+    <script src="js/appointments.js"></script>
+</body>
+</html>

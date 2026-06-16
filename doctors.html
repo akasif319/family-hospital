@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Find Doctors — Family Hospital</title>
+    <link rel="icon" type="image/x-icon" href="assets/logo.png">
+    <link rel="stylesheet" href="css/fontawesome/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+     <a href="#main-content" class="skip-link">Skip to main content</a>
+
+    <!-- Top Bar -->
+    <div class="top-bar">
+        <div class="container flex flex-between">
+            <div class="top-bar-left flex">
+                <span><i class="fa-solid fa-phone"></i> +1 (800) 234-5678</span>
+                <span><i class="fa-solid fa-envelope"></i> info@familyhospital.com</span>
+            </div>
+            <div class="top-bar-right flex">
+                <span>Mon – Sat: 8:00 AM – 8:00 PM</span>
+                <div class="top-bar-social">
+                    <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
+                    <a href="#"><i class="fa-brands fa-twitter"></i></a>
+                    <a href="#"><i class="fa-brands fa-instagram"></i></a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="container flex flex-between">
+            <a href="index.htm" class="logo">
+                <img src="asset/logo.png" alt="Family Hospital" onerror="this.style.display='none';this.parentElement.innerHTML='<span class=\'logo-text\'>Family<span>Hospital</span></span>';">
+            </a>
+            <ul class="nav-menu" id="nav-menu">
+                <li><a href="index.html" class="nav-link">Home</a></li>
+                <li><a href="services.html" class="nav-link">Services</a></li>
+                <li><a href="doctors.html" class="nav-link active">Doctors</a></li>
+                <li><a href="about.html" class="nav-link">About</a></li>
+                <li><a href="reviews.html" class="nav-link">Review Us</a></li>
+                <li class="nav-auth-guest" id="nav-auth-guest">
+                <a href="login.html" class="nav-link">Login</a>
+            </li>
+                <li class="nav-cta-mobile"><a href="#" class="btn btn-primary">Book Appointment</a></li>
+            </ul>
+            <a href="appointment.html" class="btn btn-primary nav-cta-desktop">Book Appointment</a>
+            <button class="nav-toggle" id="nav-toggle" aria-label="Toggle menu">
+                <i class="fa-solid fa-bars"></i>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <div class="page-header anim anim-fade-up">
+        <div class="container">
+            <h1>Find Doctors</h1>
+            <div class="breadcrumb">
+                <a href="index.htm">Home</a>
+                <span>/</span>
+                <span class="breadcrumb-current">Doctors</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Doctors Listing -->
+    <section class="section" id="main-content">
+        <div class="container">
+            <button class="filter-toggle" id="filter-toggle">
+                <i class="fa-solid fa-sliders"></i> Filters
+            </button>
+
+            <div class="doctors-layout">
+                <!-- Sidebar -->
+                <aside class="sidebar anim anim-fade-right" id="sidebar">
+                    <div class="sidebar-search">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                        <input type="text" id="search-input" placeholder="Search doctors...">
+                    </div>
+
+                    <p class="sidebar-title">Departments</p>
+                    
+                    <div class="dept-list" id="dept-list">
+                        <div class="dept-item active" data-dept="all">
+                            <i class="fa-solid fa-user-doctor"></i> All Departments
+                        </div>
+                        <div class="dept-item" data-dept="Cardiology">
+                            <i class="fa-solid fa-heart-pulse"></i> Cardiology
+                        </div>
+                        <div class="dept-item" data-dept="Neurology">
+                            <i class="fa-solid fa-brain"></i> Neurology
+                        </div>
+                        <div class="dept-item" data-dept="Orthopedics">
+                            <i class="fa-solid fa-bone"></i> Orthopedics
+                        </div>
+                        <div class="dept-item" data-dept="Pediatric">
+                            <i class="fa-solid fa-baby"></i> Pediatric
+                        </div>
+                        <div class="dept-item" data-dept="General Medicine">
+                            <i class="fa-solid fa-stethoscope"></i> General Medicine
+                        </div>
+                        <div class="dept-item" data-dept="Emergency">
+                            <i class="fa-solid fa-truck-medical"></i> Emergency
+                        </div>
+                    </div>
+
+                    <div class="need-help">
+                        <h4>Need Help?</h4>
+                        <p>Can't find the doctor you're looking for? Our team is here to assist.</p>
+                        <a href="tel:+18002345678"><i class="fa-solid fa-phone"></i> +1 (800) 234-5678</a>
+                    </div>
+                </aside>
+
+                <!-- Doctor Cards -->
+                 <div class="doctors-main" id="doctors-main">
+    <div class="doctors-toolbar">
+        <h2>Available Doctors <span class="count" id="doctors-count">(0)</span></h2>
+    </div>
+    <div id="doctors-list">
+        <div class="text-center" style="padding:40px;color:#727780;">
+            <i class="fa-solid fa-spinner fa-spin"></i> Loading...
+        </div>
+    </div>
+</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="grid grid-4">
+                <div class="footer-col">
+                    <a href="#" class="logo">
+                        <img src="asset/logo.png" alt="Family Hospital" onerror="this.style.display='none';this.parentElement.innerHTML='&lt;span class=&quot;logo-text footer-logo-text&quot;&gt;Family&lt;span&gt;Hospital&lt;/span&gt;&lt;/span&gt;';">
+                    </a>
+                    <p>Providing compassionate, high-quality healthcare for families since 2009. Your health is our mission.</p>
+                    <div class="footer-social">
+                        <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
+                        <a href="#"><i class="fa-brands fa-twitter"></i></a>
+                        <a href="#"><i class="fa-brands fa-instagram"></i></a>
+                        <a href="#"><i class="fa-brands fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+                <div class="footer-col">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="services.html">Services</a></li>
+                        <li><a href="doctors.html">Our Doctors</a></li>
+                        
+                        
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Services</h4>
+                    <ul>
+                        <li><a href="services.html">Cardiology</a></li>
+                        <li><a href="services.html">Neurology</a></li>
+                        <li><a href="services.html">Emergency Care</a></li>
+                        <li><a href="services.html">Orthopedics</a></li>
+                        <li><a href="services.html">Pediatric Care</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Contact Us</h4>
+                    <ul class="footer-contact">
+                        <li><i class="fa-solid fa-location-dot"></i> 123 Healthcare Ave, Medical City, MC 45678</li>
+                        <li><i class="fa-solid fa-phone"></i> +1 (800) 234-5678</li>
+                        <li><i class="fa-solid fa-envelope"></i> info@familyhospital.com</li>
+                        <li><i class="fa-solid fa-clock"></i> Mon – Sat: 8AM – 8PM</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom text-center">
+                <p>2026 Family Hospital. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Go to Top -->
+    <button class="go-top-btn" id="go-top-btn" aria-label="Go to top">
+        <i class="fa-solid fa-chevron-up"></i>
+    </button>
+
+    <!-- Accessibility -->
+<div class="a11y-toolbar">
+    <div class="a11y-panel" id="a11y-panel">
+        <div class="a11y-panel-header">
+            <h4><i class="fa-solid fa-universal-access"></i> Accessibility</h4>
+            <button class="a11y-panel-close" id="a11y-panel-close" aria-label="Close accessibility panel"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+
+        <div>
+            <div class="a11y-option-label" style="margin-bottom:8px;font-size:12px;font-weight:600;color:#727780;text-transform:uppercase;letter-spacing:0.05em;">Text Size</div>
+            <div class="a11y-font-sizes">
+                <button class="a11y-font-btn small" data-size="small" aria-label="Small text">A<sup style="−</sup></button>
+                <button class="a11y-font-btn default active" data-size="default" aria-label="Default text">A</button>
+                <button class="a11y-font-btn large" data-size="large" aria-label="Large text">A<sup>+</sup></button>
+            </div>
+        </div>
+
+        <div class="a11y-option">
+            <span class="a11y-option-label"><i class="fa-solid fa-circle-half-stroke"></i> High Contrast</span>
+            <label class="a11y-switch"><input type="checkbox" id="a11y-contrast"><span class="a11y-slider"></span></label>
+        </div>
+
+        <div class="a11y-option">
+            <span class="a11y-option-label"><i class="fa-solid fa-droplet"></i> Grayscale</span>
+            <label class="a11y-switch"><input type="checkbox" id="a11y-grayscale"><span class="a11y-slider"></span></label>
+        </div>
+
+        <div class="a11y-option">
+            <span class="a11y-option-label"><i class="fa-solid fa-font"></i> Readable Font</span>
+            <label class="a11y-switch"><input type="checkbox" id="a11y-readable"><span class="a11y-slider"></span></label>
+        </div>
+
+        <div class="a11y-option">
+            <span class="a11y-option-label"><i class="fa-solid fa-pause"></i> Disable Animations</span>
+            <label class="a11y-switch"><input type="checkbox" id="a11y-motion"><span class="a11y-slider"></span></label>
+        </div>
+
+        <div class="a11y-option">
+            <span class="a11y-option-label"><i class="fa-solid fa-link"></i> Highlight Links</span>
+            <label class="a11y-switch"><input type="checkbox" id="a11y-links"><span class="a11y-slider"></span></label>
+        </div>
+
+        <button class="a11y-reset-btn" id="a11y-reset"><i class="fa-solid fa-rotate-left"></i> Reset All Settings</button>
+    </div>
+    <button class="a11y-toggle" id="a11y-toggle" aria-label="Open accessibility settings">
+        <i class="fa-solid fa-universal-access"></i>
+    </button>
+</div>
+
+
+
+    <!-- Chatbot -->
+    <div class="chatbot">
+        <div class="chatbot-panel" id="chatbot-panel">
+            <div class="chatbot-header">
+                <h4>Chat with Us</h4>
+                <button class="chatbot-close" id="chatbot-close" aria-label="Close chat">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+            <div class="chatbot-messages" id="chatbot-messages">
+                <div class="chat-msg bot">
+                    <p>Hello! How can we help you today?</p>
+                </div>
+            </div>
+            <form class="chatbot-input" id="chatbot-form">
+                <input type="text" id="chatbot-input" placeholder="Type your message..." autocomplete="off">
+                <button type="submit" aria-label="Send message">
+                    <i class="fa-solid fa-paper-plane"></i>
+                </button>
+            </form>
+        </div>
+        <button class="chatbot-toggle" id="chatbot-toggle" aria-label="Open chat">
+            <i class="fa-solid fa-comment-dots"></i>
+        </button>
+    </div>
+
+    <!-- Page-specific JS (only what this page needs extra) -->
+    <script src="script.js"></script>
+
+    <script>
+(function() {
+    var API = 'http://localhost:5000/api';
+    var currentDoctors = [];
+
+    function renderStars(r) {
+        var h = '', f = Math.floor(r), half = r % 1 >= 0.5;
+        for (var i = 0; i < f; i++) h += '<i class="fa-solid fa-star"></i>';
+        if (half) h += '<i class="fa-solid fa-star-half-stroke"></i>';
+        for (var j = 0; j < 5 - f - (half ? 1 : 0); j++) h += '<i class="fa-regular fa-star"></i>';
+        return h;
+    }
+
+    function fmt(t) {
+        if (!t) return '';
+        var p = t.split(':'), h = parseInt(p[0]), m = p[1], a = h >= 12 ? 'PM' : 'AM';
+        return String(h > 12 ? h - 12 : (h === 0 ? 12 : h)).padStart(2, '0') + ':' + m + ' ' + a;
+    }
+
+    function renderDoctors(docs) {
+        var c = document.getElementById('doctors-list');
+        document.getElementById('doctors-count').textContent = '(' + docs.length + ')';
+
+        if (!docs.length) {
+            c.innerHTML = '<div class="no-results"><i class="fa-solid fa-user-doctor"></i><p>No doctors found.</p></div>';
+            return;
+        }
+
+        var dn = { mon: 'Mon', tue: 'Tue', wed: 'Wed', thu: 'Thu', fri: 'Fri', sat: 'Sat' };
+        c.innerHTML = docs.map(function(d) {
+            var img = d.image
+                ? '<div class="doctor-list-img"><img src="http://localhost:5000' + d.image + '" alt="' + d.name + '"></div>'
+                : '<div class="doctor-list-img doctor-placeholder"><i class="fa-solid fa-user-doctor"></i></div>';
+            var sch = '';
+            if (d.schedule) {
+                var s = d.schedule instanceof Map ? Object.fromEntries(d.schedule) : d.schedule;
+                for (var k in s) {
+                    if (dn[k] && s[k].length) sch += '<strong>' + dn[k] + '</strong>: ' + s[k].map(fmt).join(', ') + '<br>';
+                }
+            }
+            return '<div class="card doctor-list-card">' +
+                '<div class="doctor-list-img">' + img + '</div>' +
+                '<div class="doctor-list-info">' +
+                    '<h3>' + d.name + '</h3>' +
+                    '<span class="doctor-specialty">' + (d.title || d.department) + '</span>' +
+                    '<div class="doctor-rating">' + renderStars(d.rating) + ' <span>' + d.rating + ' (' + d.reviews + ' reviews)</span></div>' +
+                    '<div class="doctor-meta">' +
+                        '<div class="doctor-meta-item"><i class="fa-solid fa-briefcase-medical"></i> ' + (d.experience || 'N/A') + '</div>' +
+                        '<div class="doctor-meta-item"><i class="fa-solid fa-graduation-cap"></i> ' + (d.qualification || 'N/A') + '</div>' +
+                    '</div>' +
+                    '<div class="doctor-schedule">' + sch + '</div>' +
+                    '<div class="doctor-list-actions">' +
+                        '<a href="appointment.html?dept=' + d.department + '" class="btn btn-primary">Book Appointment</a>' +
+                    '</div>' +
+                '</div></div>';
+        }).join('');
+    }
+
+    function loadDoctors(dept) {
+        var url = API + '/doctors';
+        if (dept && dept !== 'all') url += '?department=' + encodeURIComponent(dept);
+
+        var c = document.getElementById('doctors-list');
+        c.innerHTML = '<div class="text-center" style="padding:40px;color:#727780;"><i class="fa-solid fa-spinner fa-spin"></i></div>';
+
+        fetch(url)
+            .then(function(r) { return r.json(); })
+            .then(function(docs) {
+                currentDoctors = docs;
+                applyFilters();
+            })
+            .catch(function() {
+                c.innerHTML = '<div class="no-results"><i class="fa-solid fa-circle-exclamation"></i><p>Failed to load doctors.</p></div>';
+            });
+    }
+
+    function applyFilters() {
+        var q = document.getElementById('search-input').value.trim().toLowerCase();
+        var filtered = currentDoctors;
+
+        if (q) {
+            filtered = currentDoctors.filter(function(d) {
+                return d.name.toLowerCase().indexOf(q) !== -1 ||
+                       (d.department || '').toLowerCase().indexOf(q) !== -1 ||
+                       (d.title || '').toLowerCase().indexOf(q) !== -1 ||
+                       (d.qualification || '').toLowerCase().indexOf(q) !== -1 ||
+                       (d.tags || []).some(function(t) { return t.toLowerCase().indexOf(q) !== -1; });
+            });
+        }
+
+        renderDoctors(filtered);
+    }
+
+    // Search input
+    document.getElementById('search-input').addEventListener('input', applyFilters);
+
+    // Department filter
+    document.querySelectorAll('#dept-list .dept-item').forEach(function(item) {
+        item.addEventListener('click', function() {
+            document.querySelectorAll('#dept-list .dept-item').forEach(function(i) { i.classList.remove('active'); });
+            this.classList.add('active');
+            document.getElementById('search-input').value = '';
+            loadDoctors(this.getAttribute('data-dept'));
+        });
+    });
+
+    // Mobile filter toggle
+    var ft = document.getElementById('filter-toggle'), sb = document.getElementById('sidebar');
+    if (ft) ft.addEventListener('click', function() {
+        sb.classList.toggle('open');
+        var i = this.querySelector('i');
+        i.classList.toggle('fa-sliders');
+        i.classList.toggle('fa-xmark');
+    });
+
+    loadDoctors('all');
+})();
+</script>
+        
+</body>
+</html>

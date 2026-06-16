@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard — Family Hospital Admin</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/admin.css">
+</head>
+<body>
+    <div class="admin-layout">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-logo">
+                <h2>Family<span>Hospital</span></h2>
+                <p>Admin Panel</p>
+            </div>
+            <nav class="sidebar-nav">
+    <a href="dashboard.html"><i class="fa-solid fa-grid-2"></i> Dashboard</a>
+    <a href="doctors.html"><i class="fa-solid fa-user-doctor"></i> Doctors</a>
+    <a href="appointments.html"><i class="fa-solid fa-calendar-check"></i> Appointments</a>
+    <a href="reviews.html"><i class="fa-solid fa-star"></i> Reviews</a>
+    <a href="services.html"><i class="fa-solid fa-list-check"></i> Services</a>
+</nav>
+            <div class="sidebar-footer">
+                <button id="logout-btn"><i class="fa-solid fa-right-from-bracket"></i> Logout</button>
+            </div>
+        </aside>
+
+        <!-- Main -->
+        <main class="main-content">
+            <div class="page-header">
+                <h1>Dashboard</h1>
+            </div>
+
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-card-icon blue"><i class="fa-solid fa-user-doctor"></i></div>
+                    <h3 id="stat-doctors">0</h3>
+                    <p>Total Doctors</p>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-card-icon teal"><i class="fa-solid fa-calendar-check"></i></div>
+                    <h3 id="stat-appointments">0</h3>
+                    <p>Total Appointments</p>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-card-icon orange"><i class="fa-solid fa-clock"></i></div>
+                    <h3 id="stat-pending">0</h3>
+                    <p>Scheduled</p>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-card-icon green"><i class="fa-solid fa-circle-check"></i></div>
+                    <h3 id="stat-completed">0</h3>
+                    <p>Completed</p>
+                </div>
+            </div>
+
+            <div class="table-card">
+                <div class="table-header">
+                    <h2>Recent Appointments</h2>
+                </div>
+                <div id="recent-appointments">
+                    <div class="empty-state">
+                        <i class="fa-regular fa-calendar"></i>
+                        <p>No appointments yet</p>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <div class="toast" id="toast"></div>
+
+    <script src="js/dashboard.js"></script>
+</body>
+</html>

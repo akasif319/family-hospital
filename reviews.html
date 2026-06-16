@@ -1,0 +1,959 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reviews — Family Hospital</title>
+    <link rel="icon" type="image/x-icon" href="assets/logo.png">
+    <link rel="stylesheet" href="css/fontawesome/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .reviews-hero {
+            position: relative;
+            min-height: 360px;
+            display: flex;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        .reviews-hero-bg {
+            position: absolute;
+            inset: 0;
+            z-index: 0;
+        }
+
+        .reviews-hero-bg img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .reviews-hero-bg::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(15, 76, 129, 0.9) 0%, rgba(0, 53, 95, 0.78) 100%);
+        }
+
+        .reviews-hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 560px;
+            padding: 60px 0;
+        }
+
+        .reviews-hero-content h1 {
+            font-size: 40px;
+            font-weight: 700;
+            color: #fff;
+            line-height: 1.15;
+            letter-spacing: -0.02em;
+            margin-bottom: 12px;
+        }
+
+        .reviews-hero-content p {
+            font-size: 16px;
+            color: rgba(255, 255, 255, 0.85);
+            line-height: 1.6;
+        }
+
+        /* Rating Summary */
+        .rating-summary {
+            background: #fff;
+            border: 1px solid #C2C7D1;
+            border-radius: 12px;
+            padding: 36px;
+            display: flex;
+            gap: 40px;
+            align-items: center;
+            margin-bottom: 48px;
+        }
+
+        .rating-big {
+            text-align: center;
+            min-width: 140px;
+        }
+
+        .rating-big-number {
+            font-family: 'Public Sans', sans-serif;
+            font-size: 56px;
+            font-weight: 700;
+            color: #00355F;
+            line-height: 1;
+            margin-bottom: 8px;
+        }
+
+        .rating-big-stars {
+            margin-bottom: 6px;
+        }
+
+        .rating-big-stars i {
+            font-size: 18px;
+            color: #F5A623;
+        }
+
+        .rating-big-count {
+            font-size: 13px;
+            color: #727780;
+        }
+
+        .rating-bars {
+            flex: 1;
+        }
+
+        .rating-bar-row {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 8px;
+        }
+
+        .rating-bar-row:last-child {
+            margin-bottom: 0;
+        }
+
+        .rating-bar-label {
+            font-size: 13px;
+            color: #42474F;
+            width: 50px;
+            flex-shrink: 0;
+        }
+
+        .rating-bar-track {
+            flex: 1;
+            height: 10px;
+            background: #E2E8F0;
+            border-radius: 5px;
+            overflow: hidden;
+        }
+
+        .rating-bar-fill {
+            height: 100%;
+            background: #F5A623;
+            border-radius: 5px;
+            transition: width 0.6s ease;
+        }
+
+        .rating-bar-count {
+            font-size: 13px;
+            color: #727780;
+            width: 24px;
+            text-align: right;
+            flex-shrink: 0;
+        }
+
+        /* Review Form */
+        .review-form-section {
+            background: #F3FAFF;
+        }
+
+        .review-form-card {
+            background: #fff;
+            border: 1px solid #C2C7D1;
+            border-radius: 12px;
+            padding: 36px;
+            max-width: 680px;
+            margin: 0 auto;
+        }
+
+        .review-form-card h2 {
+            font-size: 22px;
+            font-weight: 700;
+            color: #00355F;
+            margin-bottom: 6px;
+        }
+
+        .review-form-card > p {
+            font-size: 14px;
+            color: #727780;
+            margin-bottom: 28px;
+        }
+
+        .rf-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            margin-bottom: 20px;
+        }
+
+        .rf-group {
+            margin-bottom: 20px;
+        }
+
+        .rf-row .rf-group {
+            margin-bottom: 0;
+        }
+
+        .rf-label {
+            display: block;
+            font-size: 13px;
+            font-weight: 600;
+            color: #00355F;
+            margin-bottom: 6px;
+        }
+
+        .rf-label .required {
+            color: #BA1A1A;
+        }
+
+        .rf-input,
+        .rf-select,
+        .rf-textarea {
+            width: 100%;
+            height: 48px;
+            padding: 0 14px;
+            border: 1px solid #C2C7D1;
+            border-radius: 6px;
+            font-family: 'Inter', sans-serif;
+            font-size: 14px;
+            color: #071E27;
+            background: #fff;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+
+        .rf-input:focus,
+        .rf-select:focus,
+        .rf-textarea:focus {
+            border-color: #0F4C81;
+            box-shadow: 0 0 0 3px rgba(15, 76, 129, 0.1);
+        }
+
+        .rf-input::placeholder {
+            color: #A0A4A8;
+        }
+
+        .rf-select {
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23727780' d='M6 8.5L1 3.5h10z'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 14px center;
+            padding-right: 36px;
+            cursor: pointer;
+        }
+
+        .rf-textarea {
+            height: 120px;
+            padding: 14px;
+            resize: vertical;
+            line-height: 1.5;
+        }
+
+        .rf-input.error,
+        .rf-select.error,
+        .rf-textarea.error {
+            border-color: #BA1A1A;
+        }
+
+        .rf-error {
+            font-size: 12px;
+            color: #BA1A1A;
+            margin-top: 4px;
+            display: none;
+        }
+
+        .rf-error.visible {
+            display: block;
+        }
+
+        /* Star Rating Input */
+        .star-rating-input {
+            display: flex;
+            gap: 6px;
+            margin-bottom: 24px;
+        }
+
+        .star-rating-input i {
+            font-size: 28px;
+            color: #E2E8F0;
+            cursor: pointer;
+            transition: color 0.15s, transform 0.15s;
+        }
+
+        .star-rating-input i:hover {
+            transform: scale(1.15);
+        }
+
+        .star-rating-input i.active {
+            color: #F5A623;
+        }
+
+        .star-rating-label {
+            font-size: 13px;
+            color: #727780;
+            margin-top: 4px;
+            min-height: 18px;
+        }
+
+        .rf-error-rating {
+            font-size: 12px;
+            color: #BA1A1A;
+            margin-top: 4px;
+            display: none;
+        }
+
+        .rf-error-rating.visible {
+            display: block;
+        }
+
+        /* Reviews List */
+        .reviews-list {
+            display: grid;
+            gap: 20px;
+        }
+
+        .review-card {
+            background: #fff;
+            border: 1px solid #C2C7D1;
+            border-radius: 10px;
+            padding: 28px;
+            transition: box-shadow 0.2s;
+        }
+
+        .review-card:hover {
+            box-shadow: 0 4px 20px rgba(15, 76, 129, 0.06);
+        }
+
+        .review-card-top {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            margin-bottom: 14px;
+        }
+
+        .review-avatar {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            background: #E3F2FD;
+            color: #0F4C81;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Public Sans', sans-serif;
+            font-size: 16px;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+
+        .review-card-info {
+            flex: 1;
+        }
+
+        .review-card-name {
+            font-size: 15px;
+            font-weight: 600;
+            color: #071E27;
+            margin-bottom: 2px;
+        }
+
+        .review-card-meta {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 12px;
+            color: #727780;
+        }
+
+        .review-card-stars i {
+            font-size: 13px;
+            color: #F5A623;
+        }
+
+        .review-card-dept {
+            background: #F3FAFF;
+            border: 1px solid #C2C7D1;
+            padding: 2px 10px;
+            border-radius: 4px;
+            font-size: 12px;
+            color: #0F4C81;
+            font-weight: 500;
+        }
+
+        .review-card-text {
+            font-size: 15px;
+            color: #42474F;
+            line-height: 1.7;
+        }
+
+        .review-alert {
+            padding: 14px 18px;
+            border-radius: 8px;
+            font-size: 14px;
+            margin-bottom: 20px;
+            display: none;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .review-alert.visible {
+            display: flex;
+        }
+
+        .review-alert.success {
+            background: #F0FDF4;
+            color: #166534;
+            border: 1px solid #BBF7D0;
+        }
+
+        .review-alert.error {
+            background: #FEF2F2;
+            color: #991B1B;
+            border: 1px solid #FECACA;
+        }
+
+        .no-reviews {
+            text-align: center;
+            padding: 60px 20px;
+            color: #727780;
+        }
+
+        .no-reviews i {
+            font-size: 40px;
+            margin-bottom: 12px;
+            display: block;
+            opacity: 0.4;
+        }
+
+        @media (max-width: 768px) {
+            .rating-summary {
+                flex-direction: column;
+                gap: 24px;
+                padding: 28px 24px;
+            }
+
+            .rating-big {
+                min-width: auto;
+            }
+
+            .rating-big-number {
+                font-size: 44px;
+            }
+
+            .rf-row {
+                grid-template-columns: 1fr;
+            }
+
+            .review-form-card {
+                padding: 28px 20px;
+            }
+
+            .reviews-hero-content h1 {
+                font-size: 30px;
+            }
+        }
+    </style>
+</head>
+<body>
+     <a href="#main-content" class="skip-link">Skip to main content</a>
+
+    <!-- Top Bar -->
+    <div class="top-bar">
+        <div class="container flex flex-between">
+            <div class="top-bar-left flex">
+                <span><i class="fa-solid fa-phone"></i> +1 (800) 234-5678</span>
+                <span><i class="fa-solid fa-envelope"></i> info@familyhospital.com</span>
+            </div>
+            <div class="top-bar-right flex">
+                <span>Mon – Sat: 8:00 AM – 8:00 PM</span>
+                <div class="top-bar-social">
+                    <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
+                    <a href="#"><i class="fa-brands fa-twitter"></i></a>
+                    <a href="#"><i class="fa-brands fa-instagram"></i></a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="container flex flex-between">
+            <a href="index.html" class="logo">
+                <img src="asset/logo.png" alt="Family Hospital" onerror="this.style.display='none';this.parentElement.innerHTML='&lt;span class=&quot;logo-text&quot;&gt;Family&lt;span&gt;Hospital&lt;/span&gt;&lt;/span&gt;';">
+            </a>
+            <ul class="nav-menu" id="nav-menu">
+                <li><a href="index.html" class="nav-link">Home</a></li>
+                <li><a href="services.html" class="nav-link">Services</a></li>
+                <li><a href="doctors.html" class="nav-link">Doctors</a></li>
+                <li><a href="about.html" class="nav-link">About</a></li>
+                <li><a href="reviews.html" class="nav-link active">Review Us</a></li>
+                
+                <li class="nav-auth-guest" id="nav-auth-guest">
+                    <a href="login.html" class="nav-link">Login</a>
+                </li>
+                <li class="nav-auth-user" id="nav-auth-user" style="display:none;">
+                    <div class="nav-user-menu">
+                        <button class="nav-user-btn" id="nav-user-btn">
+                            <span class="nav-user-avatar"><i class="fa-solid fa-user"></i></span>
+                            <span class="nav-user-name" id="nav-user-name">User</span>
+                            <i class="fa-solid fa-chevron-down" style="font-size:10px;margin-left:4px;color:#727780;"></i>
+                        </button>
+                        <div class="nav-user-dropdown" id="nav-user-dropdown">
+                            <a href="my-appointments.html"><i class="fa-solid fa-calendar-check"></i> My Appointments</a>
+                            <a href="#" id="nav-user-logout"><i class="fa-solid fa-right-from-bracket"></i> Logout</a>
+                        </div>
+                    </div>
+                </li>
+                <li class="nav-cta-mobile"><a href="appointment.html" class="btn btn-primary">Book Appointment</a></li>
+            </ul>
+            <a href="appointment.html" class="btn btn-primary nav-cta-desktop">Book Appointment</a>
+            <button class="nav-toggle" id="nav-toggle" aria-label="Toggle menu">
+                <i class="fa-solid fa-bars"></i>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Hero -->
+    <section class="reviews-hero">
+        <div class="reviews-hero-bg">
+            <img src="https://picsum.photos/seed/hospital-reviews/1600/600.jpg" alt="Family Hospital">
+        </div>
+        <div class="container">
+            <div class="reviews-hero-content anim anim-fade-up">
+                <h1>Patient Reviews</h1>
+                <p>Real experiences from real patients. Your feedback helps us improve and helps others find the care they need.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Rating Summary -->
+    <section class="section" id="main-content" style="padding-bottom:0;">
+        <div class="container">
+            <div class="rating-summary anim anim-fade-up" id="rating-summary">
+                <div class="rating-big">
+                    <div class="rating-big-number" id="avg-rating">0.0</div>
+                    <div class="rating-big-stars" id="avg-stars"></div>
+                    <div class="rating-big-count"><span id="total-reviews">0</span> reviews</div>
+                </div>
+                <div class="rating-bars" id="rating-bars">
+                    <div class="rating-bar-row">
+                        <span class="rating-bar-label">5 star</span>
+                        <div class="rating-bar-track"><div class="rating-bar-fill" id="bar-5" style="width:0%"></div></div>
+                        <span class="rating-bar-count" id="count-5">0</span>
+                    </div>
+                    <div class="rating-bar-row">
+                        <span class="rating-bar-label">4 star</span>
+                        <div class="rating-bar-track"><div class="rating-bar-fill" id="bar-4" style="width:0%"></div></div>
+                        <span class="rating-bar-count" id="count-4">0</span>
+                    </div>
+                    <div class="rating-bar-row">
+                        <span class="rating-bar-label">3 star</span>
+                        <div class="rating-bar-track"><div class="rating-bar-fill" id="bar-3" style="width:0%"></div></div>
+                        <span class="rating-bar-count" id="count-3">0</span>
+                    </div>
+                    <div class="rating-bar-row">
+                        <span class="rating-bar-label">2 star</span>
+                        <div class="rating-bar-track"><div class="rating-bar-fill" id="bar-2" style="width:0%"></div></div>
+                        <span class="rating-bar-count" id="count-2">0</span>
+                    </div>
+                    <div class="rating-bar-row">
+                        <span class="rating-bar-label">1 star</span>
+                        <div class="rating-bar-track"><div class="rating-bar-fill" id="bar-1" style="width:0%"></div></div>
+                        <span class="rating-bar-count" id="count-1">0</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Write Review -->
+    <section class="review-form-section section">
+        <div class="container">
+            <div class="review-form-card anim anim-fade-up">
+                <h2>Write a Review</h2>
+                <p>Share your experience to help other patients make informed decisions.</p>
+
+                <div class="review-alert" id="review-alert">
+                    <i class="fa-solid fa-circle-exclamation"></i>
+                    <span id="review-alert-msg"></span>
+                </div>
+
+                <form id="review-form" novalidate>
+                    <div class="rf-row">
+                        <div class="rf-group">
+                            <label class="rf-label">Full Name <span class="required">*</span></label>
+                            <input type="text" class="rf-input" id="rv-name" placeholder="John Doe">
+                            <div class="rf-error" id="rv-err-name">Please enter your name</div>
+                        </div>
+                        <div class="rf-group">
+                            <label class="rf-label">Email <span class="required">*</span></label>
+                            <input type="email" class="rf-input" id="rv-email" placeholder="john@example.com">
+                            <div class="rf-error" id="rv-err-email">Please enter a valid email</div>
+                        </div>
+                    </div>
+
+                    <div class="rf-group">
+                        <label class="rf-label">Department</label>
+                        <select class="rf-select" id="rv-dept">
+                            <option value="">Select Department (Optional)</option>
+                            <option value="Cardiology">Cardiology</option>
+                            <option value="Neurology">Neurology</option>
+                            <option value="Orthopedics">Orthopedics</option>
+                            <option value="Pediatric">Pediatric</option>
+                            <option value="General Medicine">General Medicine</option>
+                            <option value="Emergency">Emergency</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label class="rf-label">Your Rating <span class="required">*</span></label>
+                        <div class="star-rating-input" id="star-input">
+                            <i class="fa-solid fa-star" data-rating="1"></i>
+                            <i class="fa-solid fa-star" data-rating="2"></i>
+                            <i class="fa-solid fa-star" data-rating="3"></i>
+                            <i class="fa-solid fa-star" data-rating="4"></i>
+                            <i class="fa-solid fa-star" data-rating="5"></i>
+                        </div>
+                        <div class="star-rating-label" id="star-label"></div>
+                        <div class="rf-error-rating" id="rv-err-rating">Please select a rating</div>
+                    </div>
+
+                    <div class="rf-group">
+                        <label class="rf-label">Your Review <span class="required">*</span></label>
+                        <textarea class="rf-textarea" id="rv-text" placeholder="Tell us about your experience..."></textarea>
+                        <div class="rf-error" id="rv-err-text">Please write your review</div>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary" id="rv-submit">
+                        <i class="fa-solid fa-paper-plane"></i> Submit Review
+                    </button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Reviews List -->
+    <section class="section">
+        <div class="container">
+            <div class="section-header text-center anim anim-fade-up">
+                <h2>What Patients Say</h2>
+                <p>Read reviews from patients who have visited Family Hospital.</p>
+            </div>
+            <div id="reviews-list" style="max-width:800px;margin:0 auto;">
+                <div class="text-center" style="padding:40px;color:#727780;">
+                    <i class="fa-solid fa-spinner fa-spin"></i>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="grid grid-4">
+                <div class="footer-col">
+                    <a href="#" class="logo">
+                        <img src="asset/logo.png" alt="Family Hospital" onerror="this.style.display='none';this.parentElement.innerHTML='&lt;span class=&quot;logo-text footer-logo-text&quot;&gt;Family&lt;span&gt;Hospital&lt;/span&gt;&lt;/span&gt;';">
+                    </a>
+                    <p>Providing compassionate, high-quality healthcare for families since 2009. Your health is our mission.</p>
+                    <div class="footer-social">
+                        <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
+                        <a href="#"><i class="fa-brands fa-twitter"></i></a>
+                        <a href="#"><i class="fa-brands fa-instagram"></i></a>
+                        <a href="#"><i class="fa-brands fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+                <div class="footer-col">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="services.html">Services</a></li>
+                        <li><a href="doctors.html">Our Doctors</a></li>
+                        
+                        
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Services</h4>
+                    <ul>
+                        <li><a href="services.html">Cardiology</a></li>
+                        <li><a href="services.html">Neurology</a></li>
+                        <li><a href="services.html">Emergency Care</a></li>
+                        <li><a href="services.html">Orthopedics</a></li>
+                        <li><a href="services.html">Pediatric Care</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Contact Us</h4>
+                    <ul class="footer-contact">
+                        <li><i class="fa-solid fa-location-dot"></i> 123 Healthcare Ave, Medical City, MC 45678</li>
+                        <li><i class="fa-solid fa-phone"></i> +1 (800) 234-5678</li>
+                        <li><i class="fa-solid fa-envelope"></i> info@familyhospital.com</li>
+                        <li><i class="fa-solid fa-clock"></i> Mon – Sat: 8AM – 8PM</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom text-center">
+                <p>2026 Family Hospital. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <button class="go-top-btn" id="go-top-btn" aria-label="Go to top">
+        <i class="fa-solid fa-chevron-up"></i>
+    </button>
+
+    <!-- Accessibility -->
+<div class="a11y-toolbar">
+    <div class="a11y-panel" id="a11y-panel">
+        <div class="a11y-panel-header">
+            <h4><i class="fa-solid fa-universal-access"></i> Accessibility</h4>
+            <button class="a11y-panel-close" id="a11y-panel-close" aria-label="Close accessibility panel"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+
+        <div>
+            <div class="a11y-option-label" style="margin-bottom:8px;font-size:12px;font-weight:600;color:#727780;text-transform:uppercase;letter-spacing:0.05em;">Text Size</div>
+            <div class="a11y-font-sizes">
+                <button class="a11y-font-btn small" data-size="small" aria-label="Small text">A<sup style="−</sup></button>
+                <button class="a11y-font-btn default active" data-size="default" aria-label="Default text">A</button>
+                <button class="a11y-font-btn large" data-size="large" aria-label="Large text">A<sup>+</sup></button>
+            </div>
+        </div>
+
+        <div class="a11y-option">
+            <span class="a11y-option-label"><i class="fa-solid fa-circle-half-stroke"></i> High Contrast</span>
+            <label class="a11y-switch"><input type="checkbox" id="a11y-contrast"><span class="a11y-slider"></span></label>
+        </div>
+
+        <div class="a11y-option">
+            <span class="a11y-option-label"><i class="fa-solid fa-droplet"></i> Grayscale</span>
+            <label class="a11y-switch"><input type="checkbox" id="a11y-grayscale"><span class="a11y-slider"></span></label>
+        </div>
+
+        <div class="a11y-option">
+            <span class="a11y-option-label"><i class="fa-solid fa-font"></i> Readable Font</span>
+            <label class="a11y-switch"><input type="checkbox" id="a11y-readable"><span class="a11y-slider"></span></label>
+        </div>
+
+        <div class="a11y-option">
+            <span class="a11y-option-label"><i class="fa-solid fa-pause"></i> Disable Animations</span>
+            <label class="a11y-switch"><input type="checkbox" id="a11y-motion"><span class="a11y-slider"></span></label>
+        </div>
+
+        <div class="a11y-option">
+            <span class="a11y-option-label"><i class="fa-solid fa-link"></i> Highlight Links</span>
+            <label class="a11y-switch"><input type="checkbox" id="a11y-links"><span class="a11y-slider"></span></label>
+        </div>
+
+        <button class="a11y-reset-btn" id="a11y-reset"><i class="fa-solid fa-rotate-left"></i> Reset All Settings</button>
+    </div>
+    <button class="a11y-toggle" id="a11y-toggle" aria-label="Open accessibility settings">
+        <i class="fa-solid fa-universal-access"></i>
+    </button>
+</div>
+    
+
+    
+
+    <div class="chatbot">
+        <div class="chatbot-panel" id="chatbot-panel">
+            <div class="chatbot-header">
+                <h4>Chat with Us</h4>
+                <button class="chatbot-close" id="chatbot-close" aria-label="Close chat"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div class="chatbot-messages" id="chatbot-messages">
+                <div class="chat-msg bot"><p>Hello! How can we help you today?</p></div>
+            </div>
+            <form class="chatbot-input" id="chatbot-form">
+                <input type="text" id="chatbot-input" placeholder="Type your message..." autocomplete="off">
+                <button type="submit" aria-label="Send message"><i class="fa-solid fa-paper-plane"></i></button>
+            </form>
+        </div>
+        <button class="chatbot-toggle" id="chatbot-toggle" aria-label="Open chat"><i class="fa-solid fa-comment-dots"></i></button>
+    </div>
+
+    <script src="script.js"></script>
+    <script>
+    (function() {
+        var API = 'http://localhost:5000/api';
+        var selectedRating = 0;
+        var ratingLabels = ['', 'Poor', 'Fair', 'Good', 'Very Good', 'Excellent'];
+
+        // Star rating input
+        var stars = document.querySelectorAll('#star-input i');
+        stars.forEach(function(star) {
+            star.addEventListener('mouseenter', function() {
+                var r = parseInt(this.getAttribute('data-rating'));
+                stars.forEach(function(s, i) {
+                    s.classList.toggle('active', i < r);
+                });
+                document.getElementById('star-label').textContent = ratingLabels[r];
+            });
+
+            star.addEventListener('click', function() {
+                selectedRating = parseInt(this.getAttribute('data-rating'));
+                document.getElementById('rv-err-rating').classList.remove('visible');
+            });
+        });
+
+        document.getElementById('star-input').addEventListener('mouseleave', function() {
+            stars.forEach(function(s, i) {
+                s.classList.toggle('active', i < selectedRating);
+            });
+            document.getElementById('star-label').textContent = selectedRating ? ratingLabels[selectedRating] : '';
+        });
+
+        // Render stars HTML
+        function renderStarsHTML(r) {
+            var h = '';
+            for (var i = 1; i <= 5; i++) {
+                if (i <= Math.floor(r)) h += '<i class="fa-solid fa-star"></i>';
+                else if (i - r < 1) h += '<i class="fa-solid fa-star-half-stroke"></i>';
+                else h += '<i class="fa-regular fa-star"></i>';
+            }
+            return h;
+        }
+
+        // Load reviews
+        function loadReviews() {
+            fetch(API + '/reviews/public')
+                .then(function(r) { return r.json(); })
+                .then(function(data) {
+                    renderSummary(data);
+                    renderReviewsList(data.reviews);
+                })
+                .catch(function() {
+                    document.getElementById('reviews-list').innerHTML = '<div class="no-reviews"><i class="fa-solid fa-circle-exclamation"></i><p>Failed to load reviews.</p></div>';
+                });
+        }
+
+        function renderSummary(data) {
+            document.getElementById('avg-rating').textContent = data.avgRating;
+            document.getElementById('avg-stars').innerHTML = renderStarsHTML(parseFloat(data.avgRating));
+            document.getElementById('total-reviews').textContent = data.totalReviews;
+
+            for (var i = 5; i >= 1; i--) {
+                var count = data.counts[i] || 0;
+                var pct = data.totalReviews > 0 ? (count / data.totalReviews * 100) : 0;
+                document.getElementById('bar-' + i).style.width = pct + '%';
+                document.getElementById('count-' + i).textContent = count;
+            }
+        }
+
+        function renderReviewsList(reviews) {
+            var container = document.getElementById('reviews-list');
+            if (!reviews.length) {
+                container.innerHTML = '<div class="no-reviews"><i class="fa-regular fa-comment-dots"></i><p>No reviews yet. Be the first to share your experience!</p></div>';
+                return;
+            }
+
+            var html = '<div class="reviews-list">';
+            reviews.forEach(function(r) {
+                var initials = r.name.split(' ').map(function(n) { return n[0]; }).join('').toUpperCase().substring(0, 2);
+                var deptTag = r.department ? '<span class="review-card-dept">' + r.department + '</span>' : '';
+                var dateStr = new Date(r.createdAt).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+
+                html += '<div class="review-card">' +
+                    '<div class="review-card-top">' +
+                        '<div class="review-avatar">' + initials + '</div>' +
+                        '<div class="review-card-info">' +
+                            '<div class="review-card-name">' + r.name + '</div>' +
+                            '<div class="review-card-meta">' +
+                                '<span class="review-card-stars">' + renderStarsHTML(r.rating) + '</span>' +
+                                deptTag +
+                                '<span>' + dateStr + '</span>' +
+                            '</div>' +
+                        '</div>' +
+                    '</div>' +
+                    '<p class="review-card-text">' + r.review + '</p>' +
+                '</div>';
+            });
+            html += '</div>';
+            container.innerHTML = html;
+        }
+
+        // Submit review
+        document.getElementById('review-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            var name = document.getElementById('rv-name').value.trim();
+            var email = document.getElementById('rv-email').value.trim();
+            var dept = document.getElementById('rv-dept').value;
+            var text = document.getElementById('rv-text').value.trim();
+            var valid = true;
+
+            // Clear errors
+            document.querySelectorAll('.rf-error, .rf-error-rating').forEach(function(el) { el.classList.remove('visible'); });
+            document.querySelectorAll('.rf-input, .rf-select, .rf-textarea').forEach(function(el) { el.classList.remove('error'); });
+
+            if (!name) { document.getElementById('rv-name').classList.add('error'); document.getElementById('rv-err-name').classList.add('visible'); valid = false; }
+            var emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!email || !emailPattern.test(email)) { document.getElementById('rv-email').classList.add('error'); document.getElementById('rv-err-email').classList.add('visible'); valid = false; }
+            if (!selectedRating) { document.getElementById('rv-err-rating').classList.add('visible'); valid = false; }
+            if (!text || text.length < 10) { document.getElementById('rv-text').classList.add('error'); document.getElementById('rv-err-text').classList.add('visible'); valid = false; }
+
+            if (!valid) return;
+
+            var btn = document.getElementById('rv-submit');
+            btn.disabled = true;
+            btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Submitting...';
+
+            fetch(API + '/reviews', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ name: name, email: email, rating: selectedRating, department: dept, review: text })
+            })
+            .then(function(r) {
+                if (!r.ok) return r.json().then(function(d) { throw new Error(d.message); });
+                return r.json();
+            })
+            .then(function() {
+                var alertBox = document.getElementById('review-alert');
+                alertBox.className = 'review-alert visible success';
+                document.getElementById('review-alert-msg').textContent = 'Thank you! Your review has been submitted and will appear after approval.';
+                document.getElementById('review-form').reset();
+                selectedRating = 0;
+                stars.forEach(function(s) { s.classList.remove('active'); });
+                document.getElementById('star-label').textContent = '';
+            })
+            .catch(function(err) {
+                var alertBox = document.getElementById('review-alert');
+                alertBox.className = 'review-alert visible error';
+                document.getElementById('review-alert-msg').textContent = err.message;
+            })
+            .finally(function() {
+                btn.disabled = false;
+                btn.innerHTML = '<i class="fa-solid fa-paper-plane"></i> Submit Review';
+            });
+        });
+
+        // Clear errors on input
+        ['rv-name', 'rv-email', 'rv-text'].forEach(function(id) {
+            document.getElementById(id).addEventListener('input', function() {
+                this.classList.remove('error');
+                var errId = 'rv-err-' + id.split('-')[1];
+                var el = document.getElementById(errId);
+                if (el) el.classList.remove('visible');
+                document.getElementById('review-alert').classList.remove('visible');
+            });
+        });
+
+        // User auth nav
+        var token = localStorage.getItem('userToken');
+        var guestEl = document.getElementById('nav-auth-guest');
+        var userEl = document.getElementById('nav-auth-user');
+        var nameEl = document.getElementById('nav-user-name');
+        var dropdown = document.getElementById('nav-user-dropdown');
+        var userBtn = document.getElementById('nav-user-btn');
+        var logoutBtn = document.getElementById('nav-user-logout');
+
+        if (token) {
+            guestEl.style.display = 'none';
+            userEl.style.display = 'block';
+            var uname = localStorage.getItem('userName');
+            nameEl.textContent = uname ? uname.split(' ')[0] : 'User';
+        } else {
+            guestEl.style.display = 'block';
+            userEl.style.display = 'none';
+        }
+
+        if (userBtn) userBtn.addEventListener('click', function(e) { e.stopPropagation(); dropdown.classList.toggle('open'); });
+        document.addEventListener('click', function() { if (dropdown) dropdown.classList.remove('open'); });
+        if (logoutBtn) logoutBtn.addEventListener('click', function(e) { e.preventDefault(); localStorage.removeItem('userToken'); localStorage.removeItem('userName'); localStorage.removeItem('userEmail'); window.location.href = 'index.html'; });
+
+        loadReviews();
+    })();
+    </script>
+</body>
+</html>
