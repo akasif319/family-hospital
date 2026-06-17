@@ -603,10 +603,9 @@
                 return r.json();
             })
             .then(function(data) {
-                showAlert('Account created successfully! Redirecting to login...', 'success');
-                setTimeout(function() {
-                    window.location.href = 'login.html';
-                }, 1500);
+                showAlert('Account created! Please check your email to verify your account before logging in.', 'success');
+                signupBtn.style.display = 'none';
+                form.querySelectorAll('.auth-form-group, .auth-terms, .password-strength').forEach(function(el) { el.style.display = 'none'; });
             })
             .catch(function(err) {
                 showAlert(err.message, 'error');

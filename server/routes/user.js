@@ -2,7 +2,9 @@ const express = require('express');
 const router = express.Router();
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
+const crypto = require('crypto');
 const User = require('../models/User');
+const { sendVerificationEmail, sendOtpEmail } = require('../utils/mailer');
 
 // POST /api/users/register
 router.post('/register', async (req, res) => {
@@ -13,23 +15,60 @@ router.post('/register', async (req, res) => {
         if (existing) return res.status(400).json({ message: 'Email already registered' });
 
         const hashedPassword = await bcrypt.hash(password, 10);
+        const verifyToken = crypto.randomBytes(32).toString('hex');
+        const verifyTokenExpiry = new Date(Date.now() + 24 * 60 * 60 * 1000);
+
         const user = new User({
             firstName,
             lastName,
             email,
             phone: phone || '',
             dateOfBirth: dateOfBirth || '',
-            password: hashedPassword
+            password: hashedPassword,
+            isVerified: false,
+            verifyToken,
+            verifyTokenExpiry
         });
         await user.save();
 
-        res.status(201).json({ message: 'Account created successfully' });
+        await sendVerificationEmail(email, firstName, verifyToken);
+
+        res.status(201).json({ message: 'Account created! Please check your email to verify your account.' });
     } catch (error) {
         res.status(500).json({ message: 'Registration failed', error: error.message });
     }
 });
 
-// POST /api/users/login
+// GET /api/users/verify-email?token=...
+router.get('/verify-email', async (req, res) => {
+    try {
+        const { token } = req.query;
+        const user = await User.findOne({ verifyToken: token, verifyTokenExpiry: { $gt: new Date() } });
+
+        if (!user) {
+            return res.send(`<!DOCTYPE html><html><head><title>Verification Failed</title>
+            <style>body{font-family:Inter,sans-serif;display:flex;align-items:center;justify-content:center;min-height:100vh;margin:0;background:#f8fafc;}
+            .box{background:#fff;border-radius:12px;padding:40px;text-align:center;max-width:400px;box-shadow:0 4px 24px rgba(0,0,0,.08);}
+            h2{color:#BA1A1A;}p{color:#42474F;}a{color:#0F4C81;font-weight:600;}</style></head>
+            <body><div class="box"><h2>Link Expired</h2><p>This verification link is invalid or has expired.</p><a href="/signup.html">Register again</a></div></body></html>`);
+        }
+
+        user.isVerified = true;
+        user.verifyToken = null;
+        user.verifyTokenExpiry = null;
+        await user.save();
+
+        res.send(`<!DOCTYPE html><html><head><title>Email Verified</title>
+        <style>body{font-family:Inter,sans-serif;display:flex;align-items:center;justify-content:center;min-height:100vh;margin:0;background:#f8fafc;}
+        .box{background:#fff;border-radius:12px;padding:40px;text-align:center;max-width:400px;box-shadow:0 4px 24px rgba(0,0,0,.08);}
+        h2{color:#166534;}p{color:#42474F;}a{display:inline-block;margin-top:16px;background:#0F4C81;color:#fff;padding:12px 28px;border-radius:6px;text-decoration:none;font-weight:600;}</style></head>
+        <body><div class="box"><h2>✅ Email Verified!</h2><p>Your account is now active. You can log in.</p><a href="/login.html">Sign In</a></div></body></html>`);
+    } catch (error) {
+        res.status(500).json({ message: 'Verification failed', error: error.message });
+    }
+});
+
+// POST /api/users/login — step 1: verify credentials, send OTP
 router.post('/login', async (req, res) => {
     try {
         const { email, password } = req.body;
@@ -39,6 +78,35 @@ router.post('/login', async (req, res) => {
 
         const isMatch = await bcrypt.compare(password, user.password);
         if (!isMatch) return res.status(401).json({ message: 'Invalid email or password' });
+
+        if (!user.isVerified) {
+            return res.status(403).json({ message: 'Please verify your email before logging in. Check your inbox.' });
+        }
+
+        const otp = Math.floor(100000 + Math.random() * 900000).toString();
+        user.otp = otp;
+        user.otpExpiry = new Date(Date.now() + 10 * 60 * 1000);
+        await user.save();
+
+        await sendOtpEmail(email, user.firstName, otp);
+
+        res.json({ requiresOtp: true, message: 'A 6-digit code has been sent to your email.' });
+    } catch (error) {
+        res.status(500).json({ message: 'Login failed', error: error.message });
+    }
+});
+
+// POST /api/users/verify-otp — step 2: verify OTP, issue JWT
+router.post('/verify-otp', async (req, res) => {
+    try {
+        const { email, otp } = req.body;
+
+        const user = await User.findOne({ email, otp, otpExpiry: { $gt: new Date() } });
+        if (!user) return res.status(401).json({ message: 'Invalid or expired code. Please try again.' });
+
+        user.otp = null;
+        user.otpExpiry = null;
+        await user.save();
 
         const token = jwt.sign(
             { id: user._id, email: user.email },
@@ -51,7 +119,7 @@ router.post('/login', async (req, res) => {
             user: { id: user._id, firstName: user.firstName, lastName: user.lastName, email: user.email }
         });
     } catch (error) {
-        res.status(500).json({ message: 'Login failed', error: error.message });
+        res.status(500).json({ message: 'OTP verification failed', error: error.message });
     }
 });
 

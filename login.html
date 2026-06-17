@@ -382,6 +382,7 @@
                     <span id="alert-message"></span>
                 </div>
 
+                <!-- Step 1: Email + Password -->
                 <form id="login-form" novalidate>
                     <div class="auth-form-group">
                         <label class="auth-label">Email Address</label>
@@ -418,6 +419,37 @@
                     </button>
                 </form>
 
+                <!-- Step 2: OTP -->
+                <form id="otp-form" novalidate style="display:none;">
+                    <div style="text-align:center;margin-bottom:20px;">
+                        <div style="width:56px;height:56px;background:#EFF6FF;border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 12px;">
+                            <i class="fa-solid fa-envelope-open-text" style="color:#0F4C81;font-size:22px;"></i>
+                        </div>
+                        <p style="color:#42474F;font-size:14px;margin:0;">We've sent a 6-digit code to<br><strong id="otp-email-display" style="color:#00355F;"></strong></p>
+                    </div>
+                    <div class="auth-form-group">
+                        <label class="auth-label">Verification Code</label>
+                        <div class="auth-input-wrapper">
+                            <input type="text" class="auth-input" id="otp-input" placeholder="Enter 6-digit code" maxlength="6" inputmode="numeric" autocomplete="one-time-code" required style="letter-spacing:6px;text-align:center;font-size:20px;font-weight:700;">
+                            <i class="fa-solid fa-key field-icon"></i>
+                        </div>
+                        <div class="auth-error" id="err-otp">Please enter the 6-digit code</div>
+                    </div>
+                    <button type="submit" class="auth-btn" id="otp-btn">
+                        <span>Verify &amp; Sign In</span>
+                        <i class="fa-solid fa-shield-halved"></i>
+                    </button>
+                    <div style="text-align:center;margin-top:16px;">
+                        <button type="button" id="resend-otp-btn" style="background:none;border:none;color:#0F4C81;font-size:13px;font-weight:600;cursor:pointer;padding:4px;">
+                            <i class="fa-solid fa-rotate-right"></i> Resend code
+                        </button>
+                        <span style="color:#727780;font-size:13px;margin:0 8px;">·</span>
+                        <button type="button" id="back-to-login-btn" style="background:none;border:none;color:#727780;font-size:13px;cursor:pointer;padding:4px;">
+                            <i class="fa-solid fa-arrow-left"></i> Back
+                        </button>
+                    </div>
+                </form>
+
                 <div class="auth-patient-benefits">
                     <div class="auth-benefit"><i class="fa-solid fa-calendar-check"></i> Book appointments</div>
                     <div class="auth-benefit"><i class="fa-solid fa-clock-rotate-left"></i> View history</div>
@@ -438,10 +470,13 @@
     <script>
     (function() {
         var API = '/api';
-        var form = document.getElementById('login-form');
+        var loginForm = document.getElementById('login-form');
+        var otpForm = document.getElementById('otp-form');
         var loginBtn = document.getElementById('login-btn');
+        var otpBtn = document.getElementById('otp-btn');
         var alertBox = document.getElementById('auth-alert');
         var alertMsg = document.getElementById('alert-message');
+        var pendingEmail = '';
 
         document.getElementById('toggle-pass').addEventListener('click', function() {
             var passInput = document.getElementById('login-password');
@@ -469,13 +504,35 @@
         function showAlert(message, type) {
             alertBox.className = 'auth-alert visible ' + type;
             alertMsg.textContent = message;
+            var icon = alertBox.querySelector('i');
+            if (icon) icon.className = type === 'success' ? 'fa-solid fa-circle-check' : 'fa-solid fa-circle-exclamation';
         }
 
         function hideAlert() {
             alertBox.classList.remove('visible');
         }
 
-        form.addEventListener('submit', function(e) {
+        function showOtpStep(email) {
+            pendingEmail = email;
+            document.getElementById('otp-email-display').textContent = email;
+            loginForm.style.display = 'none';
+            otpForm.style.display = 'block';
+            document.querySelector('.auth-title').textContent = 'Check Your Email';
+            document.querySelector('.auth-subtitle').textContent = 'Enter the code we sent you';
+            hideAlert();
+            document.getElementById('otp-input').focus();
+        }
+
+        function showLoginStep() {
+            loginForm.style.display = 'block';
+            otpForm.style.display = 'none';
+            document.querySelector('.auth-title').textContent = 'Patient Login';
+            document.querySelector('.auth-subtitle').textContent = 'Sign in to manage your appointments';
+            hideAlert();
+        }
+
+        // Step 1: Submit credentials
+        loginForm.addEventListener('submit', function(e) {
             e.preventDefault();
             hideAlert();
 
@@ -489,13 +546,11 @@
                 document.getElementById('err-email').classList.add('visible');
                 valid = false;
             }
-
             if (!password) {
                 document.getElementById('login-password').classList.add('error');
                 document.getElementById('err-password').classList.add('visible');
                 valid = false;
             }
-
             if (!valid) return;
 
             loginBtn.disabled = true;
@@ -507,16 +562,55 @@
                 body: JSON.stringify({ email: email, password: password })
             })
             .then(function(r) {
-                if (!r.ok) return r.json().then(function(data) { throw new Error(data.message || 'Login failed'); });
+                if (!r.ok) return r.json().then(function(d) { throw new Error(d.message || 'Login failed'); });
+                return r.json();
+            })
+            .then(function(data) {
+                if (data.requiresOtp) {
+                    showOtpStep(email);
+                    showAlert('Code sent! Check your inbox.', 'success');
+                }
+            })
+            .catch(function(err) {
+                showAlert(err.message, 'error');
+            })
+            .finally(function() {
+                loginBtn.disabled = false;
+                loginBtn.innerHTML = '<span>Sign In</span><i class="fa-solid fa-arrow-right"></i>';
+            });
+        });
+
+        // Step 2: Verify OTP
+        otpForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            hideAlert();
+
+            var otp = document.getElementById('otp-input').value.trim();
+            if (!otp || otp.length !== 6) {
+                document.getElementById('otp-input').classList.add('error');
+                document.getElementById('err-otp').classList.add('visible');
+                return;
+            }
+
+            otpBtn.disabled = true;
+            otpBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Verifying...';
+
+            fetch(API + '/users/verify-otp', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ email: pendingEmail, otp: otp })
+            })
+            .then(function(r) {
+                if (!r.ok) return r.json().then(function(d) { throw new Error(d.message || 'Verification failed'); });
                 return r.json();
             })
             .then(function(data) {
                 localStorage.setItem('userToken', data.token);
                 if (data.user) {
-                    localStorage.setItem('userName', data.user.firstName || data.user.name || '');
+                    localStorage.setItem('userName', data.user.firstName || '');
                     localStorage.setItem('userEmail', data.user.email || '');
                 }
-                showAlert('Login successful! Redirecting...', 'success');
+                showAlert('Verified! Redirecting...', 'success');
                 setTimeout(function() {
                     var redirect = localStorage.getItem('redirectAfterLogin') || 'index.html';
                     localStorage.removeItem('redirectAfterLogin');
@@ -527,9 +621,32 @@
                 showAlert(err.message, 'error');
             })
             .finally(function() {
-                loginBtn.disabled = false;
-                loginBtn.innerHTML = '<span>Sign In</span><i class="fa-solid fa-arrow-right"></i>';
+                otpBtn.disabled = false;
+                otpBtn.innerHTML = '<span>Verify &amp; Sign In</span><i class="fa-solid fa-shield-halved"></i>';
             });
+        });
+
+        // Resend OTP
+        document.getElementById('resend-otp-btn').addEventListener('click', function() {
+            var password = document.getElementById('login-password').value;
+            this.disabled = true;
+            var btn = this;
+            fetch(API + '/users/login', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ email: pendingEmail, password: password })
+            })
+            .then(function(r) { return r.json(); })
+            .then(function() { showAlert('New code sent!', 'success'); })
+            .catch(function() { showAlert('Could not resend. Please go back and try again.', 'error'); })
+            .finally(function() {
+                setTimeout(function() { btn.disabled = false; }, 30000);
+            });
+        });
+
+        // Back button
+        document.getElementById('back-to-login-btn').addEventListener('click', function() {
+            showLoginStep();
         });
 
         document.getElementById('forgot-link').addEventListener('click', function(e) {
