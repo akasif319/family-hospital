@@ -8,8 +8,8 @@ const transporter = nodemailer.createTransport({
     }
 });
 
-async function sendVerificationEmail(to, firstName, token) {
-    const verifyUrl = `${process.env.APP_URL || ''}/api/users/verify-email?token=${token}`;
+async function sendVerificationEmail(to, firstName, token, baseUrl) {
+    const verifyUrl = `${baseUrl}/api/users/verify-email?token=${token}`;
     await transporter.sendMail({
         from: `"Family Hospital" <${process.env.GMAIL_USER}>`,
         to,

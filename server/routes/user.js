@@ -12,7 +12,20 @@ router.post('/register', async (req, res) => {
         const { firstName, lastName, email, phone, dateOfBirth, password } = req.body;
 
         const existing = await User.findOne({ email });
-        if (existing) return res.status(400).json({ message: 'Email already registered' });
+        if (existing) {
+            if (!existing.isVerified) {
+                const verifyToken = crypto.randomBytes(32).toString('hex');
+                existing.verifyToken = verifyToken;
+                existing.verifyTokenExpiry = new Date(Date.now() + 24 * 60 * 60 * 1000);
+                existing.firstName = firstName;
+                existing.lastName = lastName;
+                await existing.save();
+                const baseUrl = `${req.protocol}://${req.get('host')}`;
+                await sendVerificationEmail(email, firstName, verifyToken, baseUrl);
+                return res.status(201).json({ message: 'Account created! Please check your email to verify your account.' });
+            }
+            return res.status(400).json({ message: 'Email already registered' });
+        }
 
         const hashedPassword = await bcrypt.hash(password, 10);
         const verifyToken = crypto.randomBytes(32).toString('hex');
@@ -31,7 +44,8 @@ router.post('/register', async (req, res) => {
         });
         await user.save();
 
-        await sendVerificationEmail(email, firstName, verifyToken);
+        const baseUrl = `${req.protocol}://${req.get('host')}`;
+        await sendVerificationEmail(email, firstName, verifyToken, baseUrl);
 
         res.status(201).json({ message: 'Account created! Please check your email to verify your account.' });
     } catch (error) {
