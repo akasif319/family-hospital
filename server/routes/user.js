@@ -4,7 +4,7 @@ const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 const crypto = require('crypto');
 const User = require('../models/User');
-const { sendVerificationEmail, sendOtpEmail } = require('../utils/mailer');
+const { sendVerificationEmail, sendOtpEmail, sendPasswordResetEmail } = require('../utils/mailer');
 
 // POST /api/users/register
 router.post('/register', async (req, res) => {
@@ -137,6 +137,47 @@ router.post('/verify-otp', async (req, res) => {
         });
     } catch (error) {
         res.status(500).json({ message: 'OTP verification failed', error: error.message });
+    }
+});
+
+// POST /api/users/forgot-password
+router.post('/forgot-password', async (req, res) => {
+    try {
+        const { email } = req.body;
+        const user = await User.findOne({ email });
+        if (!user || !user.isVerified) {
+            return res.json({ message: 'If that email exists, a reset link has been sent.' });
+        }
+
+        const resetToken = crypto.randomBytes(32).toString('hex');
+        user.resetToken = resetToken;
+        user.resetTokenExpiry = new Date(Date.now() + 60 * 60 * 1000);
+        await user.save();
+
+        const baseUrl = `${req.protocol}://${req.get('host')}`;
+        await sendPasswordResetEmail(email, user.firstName, resetToken, baseUrl);
+
+        res.json({ message: 'If that email exists, a reset link has been sent.' });
+    } catch (error) {
+        res.status(500).json({ message: 'Failed to send reset email', error: error.message });
+    }
+});
+
+// POST /api/users/reset-password
+router.post('/reset-password', async (req, res) => {
+    try {
+        const { token, password } = req.body;
+        const user = await User.findOne({ resetToken: token, resetTokenExpiry: { $gt: new Date() } });
+        if (!user) return res.status(400).json({ message: 'Reset link is invalid or has expired.' });
+
+        user.password = await bcrypt.hash(password, 10);
+        user.resetToken = null;
+        user.resetTokenExpiry = null;
+        await user.save();
+
+        res.json({ message: 'Password updated successfully! You can now log in.' });
+    } catch (error) {
+        res.status(500).json({ message: 'Password reset failed', error: error.message });
     }
 });
 

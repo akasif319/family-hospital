@@ -55,4 +55,27 @@ async function sendOtpEmail(to, firstName, otp) {
     });
 }
 
-module.exports = { sendVerificationEmail, sendOtpEmail };
+async function sendPasswordResetEmail(to, firstName, token, baseUrl) {
+    const resetUrl = `${baseUrl}/reset-password.html?token=${token}`;
+    await transporter.sendMail({
+        from: `"Family Hospital" <${process.env.GMAIL_USER}>`,
+        to,
+        subject: 'Reset your password — Family Hospital',
+        html: `
+        <div style="font-family:Inter,sans-serif;max-width:520px;margin:0 auto;padding:32px 24px;background:#f8fafc;border-radius:12px;">
+          <div style="text-align:center;margin-bottom:24px;">
+            <h2 style="color:#0F4C81;font-size:22px;margin:0;">Family<span style="color:#00796B;">Hospital</span></h2>
+          </div>
+          <div style="background:#fff;border-radius:8px;padding:32px;border:1px solid #e2e8f0;">
+            <h3 style="color:#00355F;margin-top:0;">Hi, ${firstName}!</h3>
+            <p style="color:#42474F;line-height:1.6;">We received a request to reset your password. Click the button below to choose a new one.</p>
+            <div style="text-align:center;margin:32px 0;">
+              <a href="${resetUrl}" style="background:#0F4C81;color:#fff;padding:14px 32px;border-radius:6px;text-decoration:none;font-weight:600;font-size:15px;display:inline-block;">Reset Password</a>
+            </div>
+            <p style="color:#727780;font-size:13px;">This link expires in 1 hour. If you didn't request a password reset, you can safely ignore this email.</p>
+          </div>
+        </div>`
+    });
+}
+
+module.exports = { sendVerificationEmail, sendOtpEmail, sendPasswordResetEmail };

@@ -419,6 +419,33 @@
                     </button>
                 </form>
 
+                <!-- Step: Forgot Password -->
+                <div id="forgot-step" style="display:none;">
+                    <div style="text-align:center;margin-bottom:20px;">
+                        <div style="width:56px;height:56px;background:#FFF7ED;border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 12px;">
+                            <i class="fa-solid fa-lock-open" style="color:#C2410C;font-size:22px;"></i>
+                        </div>
+                        <p style="color:#42474F;font-size:14px;margin:0;">Enter your email and we'll send you a reset link.</p>
+                    </div>
+                    <div class="auth-form-group">
+                        <label class="auth-label">Email Address</label>
+                        <div class="auth-input-wrapper">
+                            <input type="email" class="auth-input" id="forgot-email" placeholder="patient@example.com">
+                            <i class="fa-solid fa-envelope field-icon"></i>
+                        </div>
+                        <div class="auth-error" id="err-forgot-email">Please enter a valid email address</div>
+                    </div>
+                    <button type="button" class="auth-btn" id="forgot-submit-btn">
+                        <span>Send Reset Link</span>
+                        <i class="fa-solid fa-paper-plane"></i>
+                    </button>
+                    <div style="text-align:center;margin-top:16px;">
+                        <button type="button" id="back-from-forgot-btn" style="background:none;border:none;color:#727780;font-size:13px;cursor:pointer;padding:4px;">
+                            <i class="fa-solid fa-arrow-left"></i> Back to sign in
+                        </button>
+                    </div>
+                </div>
+
                 <!-- Step 2: OTP -->
                 <form id="otp-form" novalidate style="display:none;">
                     <div style="text-align:center;margin-bottom:20px;">
@@ -649,9 +676,64 @@
             showLoginStep();
         });
 
+        // Forgot password — show inline step
+        var forgotStep = document.getElementById('forgot-step');
+
+        function showForgotStep() {
+            loginForm.style.display = 'none';
+            otpForm.style.display = 'none';
+            forgotStep.style.display = 'block';
+            document.querySelector('.auth-title').textContent = 'Forgot Password?';
+            document.querySelector('.auth-subtitle').textContent = 'We\'ll email you a reset link';
+            hideAlert();
+            var prefill = document.getElementById('login-email').value.trim();
+            if (prefill) document.getElementById('forgot-email').value = prefill;
+            document.getElementById('forgot-email').focus();
+        }
+
         document.getElementById('forgot-link').addEventListener('click', function(e) {
             e.preventDefault();
-            showAlert('Password reset feature coming soon.', 'error');
+            showForgotStep();
+        });
+
+        document.getElementById('back-from-forgot-btn').addEventListener('click', function() {
+            forgotStep.style.display = 'none';
+            showLoginStep();
+        });
+
+        document.getElementById('forgot-submit-btn').addEventListener('click', function() {
+            var email = document.getElementById('forgot-email').value.trim();
+            var emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            document.getElementById('forgot-email').classList.remove('error');
+            document.getElementById('err-forgot-email').classList.remove('visible');
+
+            if (!email || !emailPattern.test(email)) {
+                document.getElementById('forgot-email').classList.add('error');
+                document.getElementById('err-forgot-email').classList.add('visible');
+                return;
+            }
+
+            var btn = this;
+            btn.disabled = true;
+            btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Sending...';
+
+            fetch(API + '/users/forgot-password', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ email: email })
+            })
+            .then(function(r) { return r.json(); })
+            .then(function(data) {
+                showAlert(data.message, 'success');
+                document.getElementById('forgot-email').value = '';
+            })
+            .catch(function() {
+                showAlert('Something went wrong. Please try again.', 'error');
+            })
+            .finally(function() {
+                btn.disabled = false;
+                btn.innerHTML = '<span>Send Reset Link</span><i class="fa-solid fa-paper-plane"></i>';
+            });
         });
     })();
     </script>
