@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="css/fontawesome/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
     <style>
         .auth-page {
             min-height: 100vh;
@@ -463,6 +464,11 @@
                     </div>
                     <div class="auth-error" id="err-terms" style="margin-top:-16px;margin-bottom:16px;">You must agree to the terms</div>
 
+                    <div style="display:flex;flex-direction:column;align-items:center;margin-bottom:20px;">
+                        <div class="g-recaptcha" data-sitekey="6LeD1SQtAAAAABmDAnSW0F8PPIyQPZPQf7v-jvh1"></div>
+                        <div class="auth-error" id="err-recaptcha" style="margin-top:6px;">Please complete the reCAPTCHA</div>
+                    </div>
+
                     <button type="submit" class="auth-btn" id="signup-btn">
                         <span>Create Account</span>
                         <i class="fa-solid fa-arrow-right"></i>
@@ -581,6 +587,12 @@
             if (password !== confirm) { showFieldError('signup-confirm', 'err-confirm'); valid = false; }
             if (!agreeTerms) { document.getElementById('err-terms').classList.add('visible'); valid = false; }
 
+            var recaptchaToken = typeof grecaptcha !== 'undefined' ? grecaptcha.getResponse() : '';
+            if (!recaptchaToken) {
+                document.getElementById('err-recaptcha').classList.add('visible');
+                valid = false;
+            }
+
             if (!valid) return;
 
             signupBtn.disabled = true;
@@ -595,7 +607,8 @@
                     email: email,
                     phone: phone,
                     dateOfBirth: dob,
-                    password: password
+                    password: password,
+                    recaptchaToken: recaptchaToken
                 })
             })
             .then(function(r) {
@@ -609,6 +622,7 @@
             })
             .catch(function(err) {
                 showAlert(err.message, 'error');
+                if (typeof grecaptcha !== 'undefined') grecaptcha.reset();
             })
             .finally(function() {
                 signupBtn.disabled = false;

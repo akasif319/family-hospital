@@ -3,13 +3,48 @@ const router = express.Router();
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 const crypto = require('crypto');
+const https = require('https');
 const User = require('../models/User');
 const { sendVerificationEmail, sendOtpEmail, sendPasswordResetEmail } = require('../utils/mailer');
+
+async function verifyRecaptcha(token) {
+    return new Promise((resolve) => {
+        const secret = process.env.RECAPTCHA_SECRET_KEY;
+        const postData = `secret=${encodeURIComponent(secret)}&response=${encodeURIComponent(token)}`;
+        const options = {
+            hostname: 'www.google.com',
+            path: '/recaptcha/api/siteverify',
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+                'Content-Length': Buffer.byteLength(postData)
+            }
+        };
+        const req = https.request(options, (res) => {
+            let data = '';
+            res.on('data', (chunk) => { data += chunk; });
+            res.on('end', () => {
+                try {
+                    const parsed = JSON.parse(data);
+                    resolve(parsed.success === true);
+                } catch {
+                    resolve(false);
+                }
+            });
+        });
+        req.on('error', () => resolve(false));
+        req.write(postData);
+        req.end();
+    });
+}
 
 // POST /api/users/register
 router.post('/register', async (req, res) => {
     try {
-        const { firstName, lastName, email, phone, dateOfBirth, password } = req.body;
+        const { firstName, lastName, email, phone, dateOfBirth, password, recaptchaToken } = req.body;
+
+        const captchaOk = await verifyRecaptcha(recaptchaToken || '');
+        if (!captchaOk) return res.status(400).json({ message: 'reCAPTCHA verification failed. Please try again.' });
 
         const existing = await User.findOne({ email });
         if (existing) {
@@ -88,7 +123,10 @@ router.get('/verify-email', async (req, res) => {
 // POST /api/users/login — step 1: verify credentials, send OTP
 router.post('/login', async (req, res) => {
     try {
-        const { email, password } = req.body;
+        const { email, password, recaptchaToken } = req.body;
+
+        const captchaOk = await verifyRecaptcha(recaptchaToken || '');
+        if (!captchaOk) return res.status(400).json({ message: 'reCAPTCHA verification failed. Please try again.' });
 
         const user = await User.findOne({ email });
         if (!user) return res.status(401).json({ message: 'Invalid email or password' });
