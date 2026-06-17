@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+const path = require('path');
 const { getDoctors, getDoctorById, addDoctor, updateDoctor, deleteDoctor } = require('../controllers/doctorController');
 const adminAuth = require('../middleware/authMiddleware');
 const multer = require('multer');
@@ -7,7 +8,7 @@ const multer = require('multer');
 // Configure multer for image uploads
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
-        cb(null, 'uploads/');
+        cb(null, path.join(__dirname, '..', 'uploads')); 
     },
     filename: (req, file, cb) => {
         // Create unique filename: timestamp-originalname

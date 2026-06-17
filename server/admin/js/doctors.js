@@ -179,12 +179,12 @@ document.getElementById('doctor-form').addEventListener('submit', async function
     formData.append('featured', document.getElementById('f-featured').value);
     formData.append('schedule', JSON.stringify(getScheduleFromForm()));
 
-            // Add image - file if selected, otherwise keep existing
-        if (document.getElementById('f-image').files[0]) {
-            formData.append('image', document.getElementById('f-image').files[0]);
-        } else {
-            formData.append('image', document.getElementById('f-existing-image').value || '');
-        }
+            // Add image only if a file is actually selected
+if (document.getElementById('f-image').files[0]) {
+    formData.append('image', document.getElementById('f-image').files[0]);
+} 
+// If no new file is selected, DO NOT append 'image' to formData at all.
+// The backend controller should handle keeping the existing image.
 
     var url = id ? API + '/doctors/' + id : API + '/doctors';
     var method = id ? 'PUT' : 'POST';
