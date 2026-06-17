@@ -3,6 +3,7 @@ global.crypto = crypto;
 const express = require('express');
 const cors = require('cors');
 const path = require('path');
+const fs = require('fs');
 require('dotenv').config();
 
 const connectDB = require('./config/db');
@@ -64,6 +65,22 @@ app.get('/admin', (req, res) => res.sendFile(path.join(__dirname, 'admin', 'logi
 app.use('/api', (req, res) => {
     res.status(404).json({ message: 'API route not found' });
 });
+// ==========================================
+// ENSURE UPLOADS FOLDER EXISTS
+// ==========================================
+const uploadDir = path.join(__dirname, 'uploads');
+if (!fs.existsSync(uploadDir)) {
+    fs.mkdirSync(uploadDir);
+    console.log('📁 Created missing uploads folder');
+}
+
+// Error handling middleware (Catches multer crashes)
+app.use((err, req, res, next) => {
+    console.error('❌ Server Error:', err.message);
+    res.status(500).json({ message: err.message || 'Internal server error' });
+});
+
+
 
 // Start Server
 connectDB().then(() => {
