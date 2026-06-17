@@ -19,6 +19,9 @@ router.post('/register', async (req, res) => {
                 existing.verifyTokenExpiry = new Date(Date.now() + 24 * 60 * 60 * 1000);
                 existing.firstName = firstName;
                 existing.lastName = lastName;
+                existing.phone = phone || existing.phone;
+                existing.dateOfBirth = dateOfBirth || existing.dateOfBirth;
+                existing.password = await bcrypt.hash(password, 10);
                 await existing.save();
                 const baseUrl = `${req.protocol}://${req.get('host')}`;
                 await sendVerificationEmail(email, firstName, verifyToken, baseUrl);
