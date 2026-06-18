@@ -671,13 +671,13 @@
             var password = document.getElementById('login-password').value;
             this.disabled = true;
             var btn = this;
-            fetch(API + '/users/login', {
+            fetch(API + '/users/resend-otp', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ email: pendingEmail, password: password })
             })
             .then(function(r) { return r.json(); })
-            .then(function() { showAlert('New code sent!', 'success'); })
+            .then(function(d) { showAlert(d.message || 'New code sent!', 'success'); })
             .catch(function() { showAlert('Could not resend. Please go back and try again.', 'error'); })
             .finally(function() {
                 setTimeout(function() { btn.disabled = false; }, 30000);

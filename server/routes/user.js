@@ -173,6 +173,35 @@ router.post('/login', async (req, res) => {
     }
 });
 
+// POST /api/users/resend-otp — resend OTP without reCAPTCHA (user already passed it on first login)
+router.post('/resend-otp', async (req, res) => {
+    try {
+        const { email, password } = req.body;
+
+        if (exceedsLength(email, EMAIL_MAX) || exceedsLength(password, PASS_MAX)) {
+            return res.status(401).json({ message: 'Invalid credentials' });
+        }
+
+        const user = await User.findOne({ email });
+        if (!user) return res.status(401).json({ message: 'Invalid credentials' });
+
+        const isMatch = await bcrypt.compare(password, user.password);
+        if (!isMatch) return res.status(401).json({ message: 'Invalid credentials' });
+
+        if (!user.isVerified) return res.status(403).json({ message: 'Account not verified' });
+
+        const otp = Math.floor(100000 + Math.random() * 900000).toString();
+        user.otp = otp;
+        user.otpExpiry = new Date(Date.now() + 10 * 60 * 1000);
+        await user.save();
+
+        await sendOtpEmail(email, user.firstName, otp);
+        res.json({ message: 'New code sent!' });
+    } catch (error) {
+        res.status(500).json({ message: 'Failed to resend code', error: error.message });
+    }
+});
+
 // POST /api/users/verify-otp — step 2: verify OTP, issue JWT
 router.post('/verify-otp', async (req, res) => {
     try {
