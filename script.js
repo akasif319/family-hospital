@@ -2,20 +2,27 @@
 const navToggle = document.getElementById('nav-toggle');
 const navMenu = document.getElementById('nav-menu');
 
-navToggle.addEventListener('click', function () {
-    navMenu.classList.toggle('active');
-    const icon = this.querySelector('i');
-    icon.classList.toggle('fa-bars');
-    icon.classList.toggle('fa-xmark');
-});
-
-document.querySelectorAll('.nav-link').forEach(function (link) {
-    link.addEventListener('click', function () {
-        navMenu.classList.remove('active');
-        navToggle.querySelector('i').classList.add('fa-bars');
-        navToggle.querySelector('i').classList.remove('fa-xmark');
+if (navToggle && navMenu) {
+    navToggle.addEventListener('click', function () {
+        navMenu.classList.toggle('active');
+        const icon = this.querySelector('i');
+        if (icon) {
+            icon.classList.toggle('fa-bars');
+            icon.classList.toggle('fa-xmark');
+        }
     });
-});
+
+    document.querySelectorAll('.nav-link').forEach(function (link) {
+        link.addEventListener('click', function () {
+            navMenu.classList.remove('active');
+            const icon = navToggle.querySelector('i');
+            if (icon) {
+                icon.classList.add('fa-bars');
+                icon.classList.remove('fa-xmark');
+            }
+        });
+    });
+}
 
 // FAQ accordion
 document.querySelectorAll('.faq-question').forEach(function (btn) {
@@ -221,13 +228,13 @@ if (navbar) {
     var logoutBtn = document.getElementById('nav-user-logout');
 
     if (token) {
-        guestEl.style.display = 'none';
-        userEl.style.display = 'block';
+        if (guestEl) guestEl.style.display = 'none';
+        if (userEl) userEl.style.display = 'block';
         var name = localStorage.getItem('userName');
-        nameEl.textContent = name ? name.split(' ')[0] : 'User';
+        if (nameEl) nameEl.textContent = name ? name.split(' ')[0] : 'User';
     } else {
-        guestEl.style.display = 'block';
-        userEl.style.display = 'none';
+        if (guestEl) guestEl.style.display = 'block';
+        if (userEl) userEl.style.display = 'none';
     }
 
     if (userBtn) {

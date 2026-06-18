@@ -256,6 +256,14 @@ router.post('/forgot-password', async (req, res) => {
 router.post('/reset-password', async (req, res) => {
     try {
         const { token, password } = req.body;
+
+        if (!password || password.length < 8) {
+            return res.status(400).json({ message: 'Password must be at least 8 characters' });
+        }
+        if (exceedsLength(password, PASS_MAX)) {
+            return res.status(400).json({ message: 'Password too long' });
+        }
+
         const user = await User.findOne({ resetToken: token, resetTokenExpiry: { $gt: new Date() } });
         if (!user) return res.status(400).json({ message: 'Reset link is invalid or has expired.' });
 
