@@ -610,9 +610,12 @@
                     </div>
 
                     <div class="rf-group">
-                        <label class="rf-label">Your Review <span class="required">*</span></label>
-                        <textarea class="rf-textarea" id="rv-text" placeholder="Tell us about your experience..."></textarea>
-                        <div class="rf-error" id="rv-err-text">Please write your review</div>
+                        <label class="rf-label" style="display:flex;justify-content:space-between;align-items:center;">
+                            <span>Your Review <span class="required">*</span></span>
+                            <span id="rv-char-count" style="font-size:12px;font-weight:400;color:#727780;">0 / 250</span>
+                        </label>
+                        <textarea class="rf-textarea" id="rv-text" placeholder="Tell us about your experience..." maxlength="250"></textarea>
+                        <div class="rf-error" id="rv-err-text">Please write your review (10–250 characters)</div>
                     </div>
 
                     <button type="submit" class="btn btn-primary" id="rv-submit">
@@ -881,7 +884,7 @@
             var emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
             if (!email || !emailPattern.test(email)) { document.getElementById('rv-email').classList.add('error'); document.getElementById('rv-err-email').classList.add('visible'); valid = false; }
             if (!selectedRating) { document.getElementById('rv-err-rating').classList.add('visible'); valid = false; }
-            if (!text || text.length < 10) { document.getElementById('rv-text').classList.add('error'); document.getElementById('rv-err-text').classList.add('visible'); valid = false; }
+            if (!text || text.length < 10 || text.length > 250) { document.getElementById('rv-text').classList.add('error'); document.getElementById('rv-err-text').classList.add('visible'); valid = false; }
 
             if (!valid) return;
 
@@ -918,13 +921,31 @@
             });
         });
 
+        // Live character counter for review textarea
+        document.getElementById('rv-text').addEventListener('input', function() {
+            var len = this.value.length;
+            var counter = document.getElementById('rv-char-count');
+            counter.textContent = len + ' / 250';
+            if (len > 250) {
+                counter.style.color = '#BA1A1A';
+                this.classList.add('error');
+                document.getElementById('rv-err-text').classList.add('visible');
+            } else if (len > 220) {
+                counter.style.color = '#C2410C';
+            } else {
+                counter.style.color = '#727780';
+            }
+        });
+
         // Clear errors on input
         ['rv-name', 'rv-email', 'rv-text'].forEach(function(id) {
             document.getElementById(id).addEventListener('input', function() {
-                this.classList.remove('error');
-                var errId = 'rv-err-' + id.split('-')[1];
-                var el = document.getElementById(errId);
-                if (el) el.classList.remove('visible');
+                if (id !== 'rv-text' || this.value.length <= 250) {
+                    this.classList.remove('error');
+                    var errId = 'rv-err-' + id.split('-')[1];
+                    var el = document.getElementById(errId);
+                    if (el) el.classList.remove('visible');
+                }
                 document.getElementById('review-alert').classList.remove('visible');
             });
         });

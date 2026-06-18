@@ -1,4 +1,5 @@
 const Appointment = require('../models/Appointment');
+const { exceedsLength } = require('../utils/sanitize');
 
 // Create new appointment (public - from website form)
 const createAppointment = async (req, res) => {
@@ -7,7 +8,26 @@ const createAppointment = async (req, res) => {
                 patientGender, patientBloodGroup, reason, date, time,
                 insuranceProvider, insurancePolicy } = req.body;
 
-        // Generate reference number
+        if (!patientName || !patientEmail || !patientPhone || !doctor || !date || !time) {
+            return res.status(400).json({ message: 'Required fields are missing' });
+        }
+
+        const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailPattern.test(patientEmail)) {
+            return res.status(400).json({ message: 'Please provide a valid email address' });
+        }
+
+        const phoneDigits = patientPhone.replace(/\D/g, '');
+        if (phoneDigits.length < 7 || phoneDigits.length > 15) {
+            return res.status(400).json({ message: 'Please provide a valid phone number' });
+        }
+
+        if (exceedsLength(patientName, 100)) return res.status(400).json({ message: 'Patient name must be 100 characters or fewer' });
+        if (exceedsLength(patientPhone, 25)) return res.status(400).json({ message: 'Phone number too long' });
+        if (exceedsLength(reason, 500)) return res.status(400).json({ message: 'Reason for visit must be 500 characters or fewer' });
+        if (exceedsLength(insuranceProvider, 100)) return res.status(400).json({ message: 'Insurance provider name too long' });
+        if (exceedsLength(insurancePolicy, 50)) return res.status(400).json({ message: 'Insurance policy number too long' });
+
         const refNum = 'FH-' + new Date().getFullYear() + '-' + String(Math.floor(Math.random() * 90000) + 10000);
 
         const appointment = new Appointment({

@@ -38,6 +38,14 @@ async function verifyRecaptcha(token) {
     });
 }
 
+const { exceedsLength } = require('../utils/sanitize');
+
+const NAME_MAX = 50;
+const EMAIL_MAX = 254;
+const PHONE_MAX = 25;
+const PASS_MAX = 128;
+const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
 // POST /api/users/register
 router.post('/register', async (req, res) => {
     try {
@@ -45,6 +53,16 @@ router.post('/register', async (req, res) => {
 
         const captchaOk = await verifyRecaptcha(recaptchaToken || '');
         if (!captchaOk) return res.status(400).json({ message: 'reCAPTCHA verification failed. Please try again.' });
+
+        if (!firstName || !lastName || !email || !password) {
+            return res.status(400).json({ message: 'First name, last name, email, and password are required' });
+        }
+        if (exceedsLength(firstName, NAME_MAX)) return res.status(400).json({ message: `First name must be ${NAME_MAX} characters or fewer` });
+        if (exceedsLength(lastName, NAME_MAX)) return res.status(400).json({ message: `Last name must be ${NAME_MAX} characters or fewer` });
+        if (exceedsLength(email, EMAIL_MAX) || !emailPattern.test(email)) return res.status(400).json({ message: 'Invalid email address' });
+        if (exceedsLength(phone, PHONE_MAX)) return res.status(400).json({ message: 'Phone number too long' });
+        if (!password || password.length < 8) return res.status(400).json({ message: 'Password must be at least 8 characters' });
+        if (exceedsLength(password, PASS_MAX)) return res.status(400).json({ message: 'Password too long' });
 
         const existing = await User.findOne({ email });
         if (existing) {
@@ -127,6 +145,10 @@ router.post('/login', async (req, res) => {
 
         const captchaOk = await verifyRecaptcha(recaptchaToken || '');
         if (!captchaOk) return res.status(400).json({ message: 'reCAPTCHA verification failed. Please try again.' });
+
+        if (exceedsLength(email, EMAIL_MAX) || exceedsLength(password, PASS_MAX)) {
+            return res.status(401).json({ message: 'Invalid email or password' });
+        }
 
         const user = await User.findOne({ email });
         if (!user) return res.status(401).json({ message: 'Invalid email or password' });

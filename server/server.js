@@ -14,6 +14,8 @@ const serviceRoutes = require('./routes/serviceRoutes');
 const userRoutes = require('./routes/user');
 const reviewRoutes = require('./routes/reviewRoutes');
 
+const { deepSanitize } = require('./utils/sanitize');
+
 const app = express();
 const PORT = process.env.PORT || 5000;
 
@@ -22,6 +24,12 @@ const PORT = process.env.PORT || 5000;
 // ==========================================
 app.use(cors());
 app.use(express.json({ limit: '10mb' }));
+
+app.use((req, res, next) => {
+    if (req.body && typeof req.body === 'object') req.body = deepSanitize(req.body);
+    if (req.query && typeof req.query === 'object') req.query = deepSanitize(req.query);
+    next();
+});
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 app.use(express.static(path.join(__dirname, '..')));
 

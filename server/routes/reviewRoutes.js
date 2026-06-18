@@ -2,6 +2,12 @@ const express = require('express');
 const router = express.Router();
 const Review = require('../models/Review');
 const adminAuth = require('../middleware/authMiddleware');
+const { exceedsLength } = require('../utils/sanitize');
+
+const NAME_MAX = 100;
+const EMAIL_MAX = 254;
+const REVIEW_MAX = 250;
+const DEPT_MAX = 100;
 
 // POST /api/reviews - Submit review (public)
 router.post('/', async (req, res) => {
@@ -12,11 +18,24 @@ router.post('/', async (req, res) => {
             return res.status(400).json({ message: 'Name, email, rating, and review are required' });
         }
 
+        const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailPattern.test(email)) {
+            return res.status(400).json({ message: 'Please provide a valid email address' });
+        }
+
         if (rating < 1 || rating > 5) {
             return res.status(400).json({ message: 'Rating must be between 1 and 5' });
         }
 
-        const newReview = new Review({ name, email, rating, department, review });
+        if (exceedsLength(name, NAME_MAX)) return res.status(400).json({ message: `Name must be ${NAME_MAX} characters or fewer` });
+        if (exceedsLength(email, EMAIL_MAX)) return res.status(400).json({ message: 'Invalid email address' });
+        if (exceedsLength(review, REVIEW_MAX)) return res.status(400).json({ message: `Review must be ${REVIEW_MAX} characters or fewer` });
+        if (department && exceedsLength(department, DEPT_MAX)) return res.status(400).json({ message: `Department name too long` });
+
+        if (name.length < 2) return res.status(400).json({ message: 'Name must be at least 2 characters' });
+        if (review.length < 10) return res.status(400).json({ message: 'Review must be at least 10 characters' });
+
+        const newReview = new Review({ name, email, rating, department: department || '', review });
         await newReview.save();
 
         res.status(201).json({ message: 'Review submitted successfully. It will appear after approval.' });
