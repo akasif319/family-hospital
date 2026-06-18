@@ -3124,6 +3124,70 @@ body.a11y-link-highlight a:not(.nav-link):not(.btn):not(.logo):focus-visible {
     }
 }
 
+/* Cookie Consent Banner Styles */
+#cookie-banner {
+    display: none; /* Hidden by default, JS shows it */
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color: #1e293b;
+    color: white;
+    padding: 15px 20px;
+    z-index: 10000; /* Makes sure it stays on top of everything */
+    box-shadow: 0 -4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.cookie-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.cookie-content p {
+    margin: 0;
+    font-size: 14px;
+    color: #cbd5e1;
+}
+
+.cookie-buttons {
+    display: flex;
+    gap: 10px;
+}
+
+.cookie-btn {
+    border: none;
+    padding: 8px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+.cookie-btn.accept {
+    background-color: #3b82f6;
+    color: white;
+}
+
+.cookie-btn.accept:hover {
+    background-color: #2563eb;
+}
+
+.cookie-btn.decline {
+    background-color: transparent;
+    color: #94a3b8;
+    border: 1px solid #475569;
+}
+
+.cookie-btn.decline:hover {
+    background-color: #334155;
+    color: white;
+}
+
 
 /* 1. Set the background image for the hero section */
 .hero {
