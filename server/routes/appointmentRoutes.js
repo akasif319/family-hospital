@@ -15,7 +15,7 @@ router.get('/', adminAuth, getAppointments);
 router.get('/my', userAuth, async (req, res) => {
     try {
         // req.user.id comes from your userAuth middleware (JWT decoding)
-        const appointments = await Appointment.find({ user: req.user.id }).sort({ createdAt: -1 });
+        const appointments = await Appointment.find({ user: req.admin.id }).sort({ createdAt: -1 });
         res.json(appointments);
     } catch (error) {
         res.status(500).json({ message: 'Failed to fetch appointments', error: error.message });
