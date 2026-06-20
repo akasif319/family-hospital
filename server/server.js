@@ -66,9 +66,13 @@ app.use('/api/services', serviceRoutes);
 app.use('/api/users', userRoutes);
 app.use('/api/reviews', reviewRoutes);
 
-// Admin Panel
-app.use('/admin', express.static(path.join(__dirname, 'admin')));
-app.get('/admin', (req, res) => res.sendFile(path.join(__dirname, 'admin', 'login.html')));
+// Serve admin panel under a secret URL
+app.use('/hospital-secure-portal-x9k2', express.static(path.join(__dirname, 'admin')));
+
+// Redirect secret URL to login page
+app.get('/hospital-secure-portal-x9k2', (req, res) => {
+    res.sendFile(path.join(__dirname, 'admin', 'login.html'));
+});
 
 // ==========================================
 // 3. CATCH-ALL 404 HANDLERS (MUST BE DEAD LAST!)
