@@ -54,6 +54,9 @@ app.get('/about', (req, res) => res.sendFile(path.join(__dirname, '..', 'about.h
 app.get('/doctors', (req, res) => res.sendFile(path.join(__dirname, '..', 'doctors.html')));
 app.get('/appointment', (req, res) => res.sendFile(path.join(__dirname, '..', 'appointment.html')));
 app.get('/services', (req, res) => res.sendFile(path.join(__dirname, '..', 'services.html')));
+app.get('/my-appointments', (req, res) => {
+    res.sendFile(path.join(__dirname, '..', 'my-appointments.html'));
+});
 
 // API Routes
 app.use('/api/doctors', doctorRoutes);

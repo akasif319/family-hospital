@@ -1,4 +1,5 @@
 const Appointment = require('../models/Appointment');
+const jwt = require('jsonwebtoken');
 const { exceedsLength } = require('../utils/sanitize');
 
 // Create new appointment (public - from website form)
@@ -30,8 +31,22 @@ const createAppointment = async (req, res) => {
 
         const refNum = 'FH-' + new Date().getFullYear() + '-' + String(Math.floor(Math.random() * 90000) + 10000);
 
+        // ✅ NEW: Check if user is logged in by looking for a token in headers
+        let userId = null;
+        const authHeader = req.headers.authorization;
+        if (authHeader && authHeader.startsWith('Bearer ')) {
+            try {
+                const token = authHeader.split(' ')[1];
+                const decoded = jwt.verify(token, process.env.JWT_SECRET);
+                userId = decoded.id; // Grab the user's ID from the token
+            } catch (error) {
+                // Token invalid, treat as guest
+            }
+        }
+
         const appointment = new Appointment({
             reference: refNum,
+            user: userId, // ✅ NEW: Save the user ID (or null if guest)
             doctor,
             patientName,
             patientEmail,

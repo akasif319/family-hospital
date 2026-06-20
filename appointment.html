@@ -962,9 +962,14 @@ function fetchBookedSlots(callback) {
         btn.disabled = true;
         btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Booking...';
 
+        // Get token (checks 'token' or 'userToken' to be safe)
+var token = localStorage.getItem('token') || localStorage.getItem('userToken');
+
         fetch('/api/appointments', {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
+            headers: { 'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + token
+             },
             body: JSON.stringify({
                 doctor: selectedDoctor._id,
                 patientName: document.getElementById('patient-name').value.trim(),
